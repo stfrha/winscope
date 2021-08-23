@@ -1,0 +1,33 @@
+386_OBJECTS= \
+    $(_OBJ_DIR)\i386\bulkusb.res \
+    $(_OBJ_DIR)\i386\bulkusb.obj \
+    $(_OBJ_DIR)\i386\bulkpnp.obj \
+    $(_OBJ_DIR)\i386\bulkpwr.obj \
+    $(_OBJ_DIR)\i386\bulkdev.obj \
+    $(_OBJ_DIR)\i386\bulkwmi.obj \
+    $(_OBJ_DIR)\i386\bulkrwr.obj
+
+PASS0_386_OBJECTS=
+
+IA64_OBJECTS= \
+    $(_OBJ_DIR)\ia64\bulkusb.res \
+    $(_OBJ_DIR)\ia64\bulkusb.obj \
+    $(_OBJ_DIR)\ia64\bulkpnp.obj \
+    $(_OBJ_DIR)\ia64\bulkpwr.obj \
+    $(_OBJ_DIR)\ia64\bulkdev.obj \
+    $(_OBJ_DIR)\ia64\bulkwmi.obj \
+    $(_OBJ_DIR)\ia64\bulkrwr.obj
+
+PASS0_IA64_OBJECTS=
+
+AMD64_OBJECTS= \
+    $(_OBJ_DIR)\amd64\bulkusb.res \
+    $(_OBJ_DIR)\amd64\bulkusb.obj \
+    $(_OBJ_DIR)\amd64\bulkpnp.obj \
+    $(_OBJ_DIR)\amd64\bulkpwr.obj \
+    $(_OBJ_DIR)\amd64\bulkdev.obj \
+    $(_OBJ_DIR)\amd64\bulkwmi.obj \
+    $(_OBJ_DIR)\amd64\bulkrwr.obj
+
+PASS0_AMD64_OBJECTS=
+

@@ -1,0 +1,56 @@
+### uVision2 Project, (C) Keil Software
+### Do not modify !
+
+ cExt (*.c)
+ aExt (*.a*; *.src)
+ oExt (*.obj)
+ lExt (*.lib)
+ tExt (*.txt)
+ pExt (*.plm)
+ DaveTm { 0,0,0,0,0,0,0,0 }
+
+Target (Monitor for Systronix C420), 0x0000 // Tools: 'MCS-51'
+Target (Simulator), 0x0000 // Tools: 'MCS-51'
+GRPOPT 1,(Source Group 1),1,0,0
+GRPOPT 2,(Documentation),1,0,0
+
+OPTFFF 1,1,2,0,0,0,0,0,<.\STARTUP.A51><STARTUP.A51> 
+OPTFFF 1,2,1,0,0,0,0,0,<.\COUNTER.C><COUNTER.C> 
+OPTFFF 2,3,5,2,0,1,20,0,<.\ABSTRACT.TXT><ABSTRACT.TXT> { 44,0,0,0,2,0,0,0,3,0,0,0,255,255,255,255,255,255,255,255,252,255,255,255,233,255,255,255,60,2,0,0,0,0,0,0,90,3,0,0,133,1,0,0 }
+
+ExtF <.\ABSTRACT.TXT> 1,20,0,{ 44,0,0,0,2,0,0,0,3,0,0,0,255,255,255,255,255,255,255,255,252,255,255,255,233,255,255,255,60,2,0,0,0,0,0,0,90,3,0,0,133,1,0,0 }
+
+TARGOPT 1, (Monitor for Systronix C420)
+ CLK51=50000000
+  OPTTT 1,1,1,0
+  OPTHX 0,65535,0,0,0
+  OPTLX 120,65,8,<.\>
+  OPTOX 16
+  OPTLT 1,1,1,0,1,1,0,1,0,0,0
+  OPTXL 1,1,1,1,1,1,1,0,0
+  OPTFL 1,0,1
+  OPTDL (S8051.DLL)()(DP51.DLL)(-p420)(S8051.DLL)()(TP51.DLL)(-p420)
+  OPTDBG 1022,0,()()()()()()()()()(.\mon51.ini) ()()()()
+  OPTKEY 0,(MON51)(-S1 -B19200 -O15)
+  OPTDF 0x90
+  OPTLE <>
+  OPTLC <>
+EndOpt
+
+TARGOPT 2, (Simulator)
+ CLK51=22100000
+  OPTTT 1,1,1,0
+  OPTHX 0,65535,0,0,0
+  OPTLX 120,65,8,<.\>
+  OPTOX 16
+  OPTLT 1,1,1,0,1,1,0,1,0,0,0
+  OPTXL 1,1,1,1,1,1,1,0,0
+  OPTFL 1,0,0
+  OPTDL (S8051.DLL)()(DP51.DLL)(-p420)(S8051.DLL)()(TP51.DLL)(-p420)
+  OPTDBG 2045,0,()()()()()()()()()(.\mon51.ini) ()()()()
+  OPTKEY 0,(DLGDP51)((98=-1,-1,-1,-1,0)(82=-1,-1,-1,-1,0)(83=-1,-1,-1,-1,0)(84=-1,-1,-1,-1,0)(85=-1,-1,-1,-1,0)(99=-1,-1,-1,-1,0)(101=-1,-1,-1,-1,0)(91=-1,-1,-1,-1,0)(92=-1,-1,-1,-1,0)(94=-1,-1,-1,-1,0)(104=-1,-1,-1,-1,0)(5065=-1,-1,-1,-1,0))
+  OPTDF 0x90
+  OPTLE <>
+  OPTLC <>
+EndOpt
+

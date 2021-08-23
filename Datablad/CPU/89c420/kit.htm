@@ -1,0 +1,743 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
+<META NAME="Generator" CONTENT="Microsoft Word 97">
+<TITLE>After KIT</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+
+<B><FONT FACE="Arial" SIZE=7><P ALIGN="RIGHT">DALLAS SEMICONDUCTOR</P>
+<P ALIGN="RIGHT">&nbsp;</P>
+<P ALIGN="RIGHT">KIT.EXE<BR>
+SOFTWARE<BR>
+USER’S GUIDE</P>
+<P ALIGN="RIGHT">&nbsp;</P>
+<P ALIGN="RIGHT">Version 05.98</P>
+<P ALIGN="RIGHT">&nbsp;</P>
+</B></FONT><FONT SIZE=2><P ALIGN="CENTER">Dallas Semiconductor reserves the right to make changes to or to discontinue any product or service described herein without notice. Dallas Semiconductor advises customer to obtain the most recent version of software, documentation, and data sheets from our World Wide Web site before beginning any design project</P>
+<P ALIGN="CENTER">&nbsp;</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><P>&nbsp;</P>
+<P>DESCRIPTION</P>
+</B></FONT><FONT SIZE=2><P>KIT.EXE is a high-level interface for developing applications using members of the Secure Microcontroller Family from Dallas Semiconductor. The software provides a number of features including the uploading or downloading of application software or setting configuration parameters. For more advanced users, KIT.EXE allows individual manipulation of the microcontroller’s resources including memory configuration registers, direct access to general purpose I/O ports 0, 1, 2, and 3, and enabling/disabling of certain security features. The software allows the examination or editing of memory locations on a byte-by-byte basis. After loading, the device can be released on command from the PC to run the application software. A dumb terminal emulator is included in the software, allowing direct access to the serial port of the microcontroller.</P>
+<P>This software combines the functionality of and replaces the programs KIT5K.EXE and K2.EXE previously used with the Soft and Secure Microcontroller families.</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><P>SYSTEM REQUIREMENTS</P>
+</B></FONT><FONT SIZE=2><P>The DS5000TK Evaluation Kit requires a PC or compatible with at least 128K bytes of conventional memory. KIT.EXE has been tested under DOS, Windows 3.x, and Windows 95. The hardware requires an RS-232 port for communication with the RS-232 fixture. Monochrome, CGA, or EGA (mode 3) graphics are supported.</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><P>OPERATIONAL DETAILS</P>
+</B></FONT><FONT SIZE=2><P>When KIT.EXE is invoked, the program looks for the name of a file on the command line. If found, it will treat that file as a batch file of KIT.EXE commands. If no command line argument is supplied, the program will begin, display its sign-on banner, and prompt the user to supply a COM port through which to communicate to the target device. The first time that the COM command is entered, either at the kit&gt; prompt or via the batch file, the DTR signal on the PC serial communication port is asserted. When exiting KIT.EXE, the DTR signal on the PC serial communication port will remain in the last state specified by the program.</P>
+<P>Before every command which causes a communication with the target device (dump, fill, status, range, load, etc.) the KIT.EXE will attempt to verify the existence of the target device by performing the following series of steps:</P>
+<OL>
+
+<LI>Transmit a break character</LI>
+<LI>Initiation of an autobaud sequence to synchronize baud rates</LI>
+<LI>Acquire the bootstrap loader sign-on banner from the target device</LI>
+<LI>Perform the bootstrap loader &quot;R&quot; command</LI>
+<LI>Execute the requested command</LI></OL>
+
+<P>&nbsp;</P>
+<P>KIT.EXE operates one of three primary modes: </P><DIR>
+<DIR>
+
+<B><P>Kit mode:</B> The most commonly used mode, Kit mode is a high-level interface with the target device. Indicated by the &quot;kit&gt;&quot; prompt, this mode affords the user a superset of the commands available through the microcontroller’s bootstrap loader.</P>
+<B><P>Terminal (or Term) mode:</B> In this mode, KIT.EXE acts as a dumb terminal giving direct access to the bootstrap loader of the target device. This mode can be useful as a way to communicate directly with the microcontroller in run mode.</P>
+<B><P>Batch mode:</B> A series of user-defined commands can be executed through the use of either command line scripts or the DO command. This can be used to automate multi-step tasks such as loading and configuring the microcontroller.</P></DIR>
+</DIR>
+
+<P>The following is a summary of commands recognized by KIT.EXE, sorted by mode. A full description of these commands is provided later in this document.</P>
+</FONT><B><I><FONT FACE="Arial"><P>KIT (or BATCH) MODE</P></B></I></FONT>
+<TABLE CELLSPACING=0 BORDER=0 CELLPADDING=7 WIDTH=696>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>cd</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Change to another directory or show the default directory.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>cls</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Clear screen.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>com</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Specify which PC COM port to use.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>crc</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Calculate a CRC value over the requested range.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>dir</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>List the default directory or specified path.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>display</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>List Embedded RAM contents in debug format.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>do</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Execute a list of KIT.EXE commands from a file.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>dos</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Enter DOS mode temporarily </FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>dtr</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Toggles the DTR line to switch between run and load.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>dump</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Dump Embedded RAM in Intel Hex to a file.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>echo</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Copy the characters directly to the serial port.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>edit</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Examine/change bytes in embedded RAM.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>exit</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Exit the program.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>fill</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Fill Embedded RAM with a constant value.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>fresh</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Place DS5001FP or DS5002FP into Freshness (storage) mode.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>get</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Display values of ports 0, 1, 2, and 3.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>help</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Describe the function and syntax of KIT.EXE commands.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>include</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Calculate and include a CRC-16 (DS5001FP/DS5002FP)</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>key</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Load the Encryption Key. (DS5000FP)</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>load</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Load an Intel Hex file into embedded RAM.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>lock</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Set the Security Lock on the microcontroller.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>logoff</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Disable logging of KIT.EXE commands.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>logto</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Log KIT.EXE commands to the specified file.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>mcon</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Set the MCON register with a specified value.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>partition</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Set the Partition Address with a specified value.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>pgmode</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>The DTR line from the PC COM port is raised to its active level.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>put_port</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Directly modify the selected I/O port.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>quit</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Same as exit.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>range</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Set the Range Address.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>read</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Displays configuration registers of target device.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>reload</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Sets the PC UART reload value for flexible baud rate selection.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>remark</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Includes a remark into a batch file.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>run</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>The DTR line from the PC COM port is dropped to its inactive level.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>send</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Download a file is to the target device without error checking.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>speed</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Select the baud rate.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>status</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Display the current status of the target device.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>term</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Switch to terminal emulation mode; see below.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>time</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Accesses the RTC in the DS2251T/DS2252T modules.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>type</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Display the requested file on the screen.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>unasm</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Unassemble the program memory to the screen.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>unlock</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Clear the Security Lock. </FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>verify</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Verify Embedded RAM with the specified Intel Hex file. </FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>wait</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Insert specified delay into script file. </FONT></TD>
+</TR>
+</TABLE>
+
+<B><I><FONT FACE="Arial"><P>TERMINAL MODE</P></B></I></FONT>
+<TABLE CELLSPACING=0 BORDER=0 CELLPADDING=7 WIDTH=696>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>capture</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Capture screen output to memory, and allow saving to a file.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>cd</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Change to another directory or show the default directory.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>cls</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Clear screen.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>com</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Select the PC com port.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>debug</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Display non-printing data received from target device as hex value.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>dir</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Read directory </FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>dos</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Enter DOS mode temporarily </FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>dtr</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Toggle the DTR line.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>exit</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Exit Kit.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>help</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Describe the functions and syntax of terminal emulator </FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>kit</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Switch to kit mode.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>logoff</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Stop logging commands to a file.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>logto</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Log commands to a file </FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>pgmode</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>The DTR line from the PC COM port is raised to its active level.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>quit</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Leave KIT.EXE.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>reload</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Sets the PC UART reload value for flexible baud rate selection.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>run</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>The DTR line from the PC COM port is dropped to its inactive level.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>send</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Download a file is to the target device without error checking.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>speed</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Select the baud rate.</FONT></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<FONT SIZE=2><P>type</FONT></TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<FONT SIZE=2><P>Display the requested file on the screen.</FONT></TD>
+</TR>
+</TABLE>
+
+<B><FONT FACE="Arial" SIZE=4><P>CREATING BATCH FILES</P>
+</B></FONT><FONT SIZE=2><P>Batch files can be used to automate user-defined commands. A sequence of KIT.EXE commands is entered into a file using a text editor, in the same syntax as they would be using the kit&gt; prompt. The command file is executed in two ways; either by entering it on the KIT.EXE command line when the program is invoked, or by using the DO [filename] command in Kit mode. The commands are case insensitive, and illegal or invalid commands are ignored. An example file is shown below:</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>&nbsp;</P>
+</FONT><FONT FACE="Courier New" SIZE=2><P>REMARK This is the batch file I wrote to initialize the system.<BR>
+COM 1<BR>
+SPEED 19200<BR>
+CD c:\code\mycode\<BR>
+LOAD myfile.hex<BR>
+VERIFY myfile.hex<BR>
+REMARK End of my batch file.</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><P>COMMAND LINE SYNTAX </P>
+</B></FONT><FONT SIZE=2><P>One or more ASCII characters constitutes a command. Commands will not be processed by KIT.EXE until terminated with a &lt;CR&gt;. As a result, commands may be edited with the delete key before the &lt;CR&gt; is entered.</P>
+<P>Only legal characters will be echoed back to the screen. The legal characters include upper and lower case alphanumerics, &lt;:&gt;, &lt;space&gt;, &lt;tab&gt;, and &lt;delete&gt;. Backspace characters (&lt;BS&gt;) and the horizontal tab character are converted to &lt;delete&gt; characters and &lt;space&gt; characters, respectively.</P>
+<P>Most arguments use a sequence of hexadecimal characters. A byte will always be the right-most two digits of a hexadecimal number, and an address will always be the right-most four digits of a hexadecimal number as shown below: In the other cases, arguments are represented by decimal numbers. In commands which normally accept hexadecimal numbers as their arguments, decimal operation may be invoked by typing a period (.) after the entered value.<BR>
+</P></FONT>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=7 WIDTH=606>
+<TR><TD WIDTH="34%" VALIGN="TOP">
+<B><FONT FACE="Arial" SIZE=2><P>Entered Value</B></FONT></TD>
+<TD WIDTH="35%" VALIGN="TOP">
+<B><FONT FACE="Arial" SIZE=2><P>Number</B></FONT></TD>
+<TD WIDTH="31%" VALIGN="TOP">
+<B><FONT FACE="Arial" SIZE=2><P>Address</B></FONT></TD>
+</TR>
+<TR><TD WIDTH="34%" VALIGN="TOP">
+<FONT FACE="Arial" SIZE=2><P>A</FONT></TD>
+<TD WIDTH="35%" VALIGN="TOP">
+<FONT FACE="Arial" SIZE=2><P>0Ah</FONT></TD>
+<TD WIDTH="31%" VALIGN="TOP">
+<FONT FACE="Arial" SIZE=2><P>000Ah</FONT></TD>
+</TR>
+<TR><TD WIDTH="34%" VALIGN="TOP">
+<FONT FACE="Arial" SIZE=2><P>AB</FONT></TD>
+<TD WIDTH="35%" VALIGN="TOP">
+<FONT FACE="Arial" SIZE=2><P>0ABh</FONT></TD>
+<TD WIDTH="31%" VALIGN="TOP">
+<FONT FACE="Arial" SIZE=2><P>00ABh</FONT></TD>
+</TR>
+<TR><TD WIDTH="34%" VALIGN="TOP">
+<FONT FACE="Arial" SIZE=2><P>ABC</FONT></TD>
+<TD WIDTH="35%" VALIGN="TOP">
+<FONT FACE="Arial" SIZE=2><P>0BCh</FONT></TD>
+<TD WIDTH="31%" VALIGN="TOP">
+<FONT FACE="Arial" SIZE=2><P>0ABCh</FONT></TD>
+</TR>
+<TR><TD WIDTH="34%" VALIGN="TOP">
+<FONT FACE="Arial" SIZE=2><P>ABCD</FONT></TD>
+<TD WIDTH="35%" VALIGN="TOP">
+<FONT FACE="Arial" SIZE=2><P>0CDh</FONT></TD>
+<TD WIDTH="31%" VALIGN="TOP">
+<FONT FACE="Arial" SIZE=2><P>0ABCDh</FONT></TD>
+</TR>
+</TABLE>
+
+<B><FONT FACE="Arial" SIZE=4><P>DETAILED COMMAND SUMMARY KIT MODE</P>
+</B></FONT><FONT FACE="Arial" SIZE=2><P>Commands and arguments are case-insensitive. Capitalized letters show the shortened form of the command for experienced users. Mandatory arguments are enclosed by parenthesis (), optional arguments are enclosed in square brackets [].</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>CD</B> directory_name </P>
+</FONT><FONT FACE="Arial" SIZE=2><P>Change the default directory to directory_name. The command will then display the current directory</P>
+<I><P>Example:</P>
+</I></FONT><FONT FACE="Courier New" SIZE=2><P>kit&gt; cd \ws</P>
+<P>  C:\WS</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>CLs</P>
+</B></FONT><FONT FACE="Arial" SIZE=2><P>Clear the monitor screen</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>COm</B> (1 | 2 | 3 | 4)</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>Selects which PC communication port to use. If KIT.EXE is unable to locate the corresponding PC IRQ, the user will be prompted for it.</P>
+<I><P>Example:</P>
+</I></FONT><FONT FACE="Courier New" SIZE=2><P>kit&gt; com 1</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>Crc </B>[beg_addr [end_addr]]</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>Calculates a CRC value over the requested range of target device memory. <I>Beg_addr</I> and <I>end_addr</I> default to 0000h and FFFFh respectively if not specified. </P>
+<I><P>Example:</P>
+</I></FONT><FONT FACE="Courier New" SIZE=2><P>kit&gt; crc 0000h 5000h<BR>
+   crc = A63F</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>DIR</B> [filename | wildcards]</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>A list of the file names in the directory is displayed.</P>
+<I><P>Example:</P>
+</I></FONT><FONT FACE="Courier New" SIZE=2><P>kit&gt; dir<BR>
+READ.ME       KIT.EXE       TEST.HEX      DEMO.BAT      DEMODS5T.CMD<BR>
+DEMODS5T.EXE  DEMODS5T.HEX  DEMODS5T.LST  DEMODS5T.PAS  DEMODS5T.SRC</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>DISplay</B> [beg-addr [end-addr]]  [&gt;filename]</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>Data is displayed in hex and ASCII format. The optional arguments are interpreted as hexadecimal numbers by default. The beginning and ending addresses are positional and will default to zero and the current range value, if not specified. The optional "&gt;filename&quot; argument redirects the output to the specified file instead of to the screen.</P>
+<I><P>Example:</P>
+</I></FONT><FONT FACE="Courier New" SIZE=2><P>kit&gt; display 0 7f<BR>
+0000  B2 90 80 FC 3C 2D 54 65 - 73 74 20 43 6F 64 65 20   ....&lt;-Test Code<BR>
+0010  20 20 20 20 20 20 20 20 - 20 20 20 20 20 20 20 20<BR>
+0020  54 65 78 74 20 66 6F 72 - 20 44 69 73 70 6C 61 79   Text for Display<BR>
+0030  50 75 72 70 6F 73 65 73 - 2E 20 41 42 43 44 45 46   Purposes. ABCDEF<BR>
+0040  47 48 49 4A 4B 4C 4D 4E - 4F 50 51 52 53 54 55 56   GHIJKLMNOPQRSTUV<BR>
+0050  57 58 59 5A 20 20 61 62 - 63 64 65 66 67 68 69 6A   WXYZ  abcdefghij<BR>
+0060  6B 6C 6D 6E 6F 70 71 72 - 73 74 75 76 77 78 79 7A   klmnopqrstuvwxyz<BR>
+0070  2A 20 20 31 32 33 34 35 - 36 37 38 39 30 20 20 2A   *  1234567890  *</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>DO</B> (filename)</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>The commands in filename are executed as a script until the end of file is encountered. Recognized errors will be displayed on the screen, but execution will not be halted.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>DOS</P>
+</B></FONT><FONT FACE="Arial" SIZE=2><P>Launches a shell within KIT.EXE that allows the user to execute DOS commands. When DOS commands are complete, return to KIT by typing "exit".</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>DTr</B> [on|off]</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>Changes the status of the PC COM port DTR signal. The state of the DTR signal toggles if no argument is given.</P>
+<I><P>Example:</P>
+</I></FONT><FONT FACE="Courier New" SIZE=2><P>kit5k &gt;dtr off<BR>
+DTR dropped on com 1<BR>
+<BR>
+kit5k &gt;dtr<BR>
+DTR asserted on com 1</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>DUmp</B> [beg-addr, end-addr]  [&gt;filename]</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>Embedded RAM contents from beg-addr to end-addr are displayed on the PC as Intel Hex Data. The optional arguments are interpreted as hexadecimal numbers by default. The beginning and ending addresses are positional and will default to zero and the current range value if not specified. The "&gt;" sign redirects the output to the specified file instead of the screen.</P>
+<I><P>Example:</P>
+</I></FONT><FONT FACE="Courier New" SIZE=2><P>kit&gt; dump 0 2f<BR>
+:20000000B29080FC3C2D5465737420436F646520202020202020202020202020202020205E<BR>
+:100020005465787420666F7220446973706C6179CE<BR>
+:00000001FF</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>ECho</B> (data)</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>Transmits the data out the selected communication port. Use \ followed by a three digit octal number for special characters. \n will output a carriage return.</P>
+<I><P>Example:</P>
+</I></FONT><FONT FACE="Courier New" SIZE=2><P>kit&gt; echo A<BR>
+</FONT><FONT FACE="Arial" SIZE=2>          (This sends ASCII character A (101 octal or 41 hex) to the target device.<BR>
+</FONT><FONT FACE="Courier New" SIZE=2>kit&gt; echo \175<BR>
+</FONT><FONT FACE="Arial" SIZE=2>          (This sends ASCII character } (175 octal or 7D hex) to the target device.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>EDit</B> (address)</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>Examine and change data beginning with address. Data may be examined either in the forward or backward direction. The argument is interpreted as a hexadecimal number by default.</P>
+<I><P>Example:</P>
+</I></FONT><FONT FACE="Courier New" SIZE=2><P>kit&gt; dis 10 1F<BR>
+0010  2E 2E 2E 2E 2E 2E 2E 2E - 2E 2E 2E 2E 2E 2E 2E 2E   ................<BR>
+<BR>
+kit&gt; edit 16<BR>
+   CR to leave unchanged; NUMBER to change; Other to exit.<BR>
+   0016  2E:46<BR>
+   0017  2E:6F<BR>
+   0018  2E:6F<BR>
+   0019  2E:q<BR>
+<BR>
+kit&gt; dis 10 1F<BR>
+0010  2E 2E 2E 2E 2E 2E 46 6F - 6F 2E 2E 2E 2E 2E 2E 2E   ......Foo.......</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>Exit</P>
+</B></FONT><FONT FACE="Arial" SIZE=2><P>Buffers and files are closed, the communication ports are cleared and the program is exited. The DTR signal on the PC COM port retains its last state before exiting.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>Fill</B> (value) [beg-addr end-addr]</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>The specified memory range is filled with the specified constant <I>value</I>. The optional arguments are interpreted as hexadecimal numbers by default.</P>
+<I><P>Example:</P>
+</I></FONT><FONT FACE="Courier New" SIZE=2><P>kit&gt; f 0  0  2f<BR>
+kit&gt; f aa 12 1d<BR>
+kit&gt; disp 0 2f<BR>
+0000  00 00 00 00 00 00 00 00 - 00 00 00 00 00 00 00 00   ................<BR>
+0010  00 00 AA AA AA AA AA AA - AA AA AA AA AA AA 00 00   ................<BR>
+0020  00 00 00 00 00 00 00 00 - 00 00 00 00 00 00 00 00   ................</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>FResh</P>
+</B></FONT><FONT FACE="Arial" SIZE=2><P>Place the DS5001FP- or DS5002FP-based target system into Freshness mode. This disconnects the V<SUB>CCO</SUB> output of the microprocessor from the V<SUB>BAT</SUB> input to halt battery drain while in storage. Freshness mode is removed automatically by the first application of V<SUB>CC</SUB> power to the microprocessor or module.</P>
+<I><P>Example:</P>
+</I></FONT><FONT FACE="Courier New" SIZE=2><P>kit&gt; Fresh</P>
+<P>POWER DOWN TO MAINTAIN FRESHNESS</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>Get</P>
+</B></FONT><FONT FACE="Arial" SIZE=2><P>Display values of ports 0, 1, 2, and 3 of the target device.</P>
+<I><P>Example:</P>
+</I></FONT><FONT FACE="Courier New" SIZE=2><P>kit&gt; get</P>
+<P>   Port0:FF  Port1:FF  Port2:FF  Port3:FB</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>Help</B> [command-name]</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>Available commands in the current mode are listed or help on the requested command is given.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>Include </B>(1000|2000|3000|4000|5000|6000|7000|8000|9000|A000|B000|C000|D000|E000|FFFF)</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>Calculate a CRC-16 check sum on Embedded RAM contents from 0000h to (range-2), and places it into the last two bytes of the range. This command modifies bits in the CRC register as described in the Secure Microcontroller User’s Guide. This command is only available for DS5001FP, DS2251T, and derivative parts.</P>
+<I><P>Example:</P>
+</I></FONT><FONT FACE="Courier New" SIZE=2><P>kit&gt; disp 0FF0 0FFF<BR>
+0FF0  F2 F2 F2 F2 F2 F2 F2 F2 - F2 F2 F2 F2 F2 F2 F2 F2   ................<BR>
+<BR>
+kit&gt; include 1000<BR>
+<BR>
+kit&gt; disp 0FF0 0FFF<BR>
+0FF0  F2 F2 F2 F2 F2 F2 F2 F2 - F2 F2 F2 F2 F2 F2 26 26   ..............&amp;&amp;</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>KEy</B> (ASCII String | 5 pairs of hex digits | RANDOM)</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>This command sets the Encryption Key Word within the DS5000FP. The entering of a new key renders the current program and data memory unreadable by the microcontroller. Subsequent program and data loads will be properly encrypted, allowing secure execution by the microcontroller. The key may set by entering five ASCII characters enclosed in single or double quotes, 5 hexadecimal numbers, or the PC may be requested to specify a random key.</P>
+<I><P>Example:</P>
+</I></FONT><FONT FACE="Courier New" SIZE=2><P>kit&gt; key 466E6F5244<BR>
+kit&gt; key ‘fnord’<BR>
+kit&gt; key RANDOM</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>Load</B> (filename)</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>The data from filename is downloaded into the target device. Several errors can be detected, such as multiple programming of the same memory location, and attempts to program nonexistent memory. All error messages will be reported. No configuration files are used with this command.</P>
+<I><P>Example:</P>
+</I></FONT><FONT FACE="Courier New" SIZE=2><P>kit&gt; load test.hex</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>LOCk</P>
+</B></FONT><FONT FACE="Arial" SIZE=2><P>Set the security lock on the microcontroller. Attempts to access Embedded RAM after the security lock has been has been set will fail until the Unlock command is issued.</P>
+<I><P>Example:</P>
+</I></FONT><FONT FACE="Courier New" SIZE=2><P>kit&gt; lock<BR>
+<BR>
+kit&gt; status<BR>
+   Part is locked.</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>LOGOff </P>
+</B></FONT><FONT FACE="Arial" SIZE=2><P>The log file is closed. See the Logto entry for more details.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>LOGTo</B> (filename)</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>All user input and data echoed to the screen is logged to the specified file. Logging is turned off with the Logoff command or by exiting. The specified file may be viewed with a text editor.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>Mcon</B> (value) </P>
+</FONT><FONT FACE="Arial" SIZE=2><P>The MCON register in the target device is changed to the requested number. The argument is interpreted as a hexadecimal number as a default.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>OVerride</B> [on|off]</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>Enables (off) or disables (on) the need for KIT.EXE to check the status of the DTR signal for select commands such as Status. This command is useful if loader entry/exit is controlled by external hardware and not by the DTR signal generated by KIT.EXE. Executing this command with no argument toggles the status of override.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>Partition</B> (address)</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>Partition address is set to the selected hexadecimal value and the display is updated. The arguments for this command vary, depending on the target device:</P>
+<P>DS5000FP: </P>
+<P>0 | 800 | 1000 | 1800 | 2000 | 2800 | 3000 | 3800 | 4000 | 4800 | 5000 | 5800 | 6000 | 6800 | 7000 | 8000</P>
+<P>DS5001FP, DS5002FP:</P>
+<P>0 | 1000 | 2000 | 3000 | 4000 | 5000 | 6000 | 7000 | 8000 | 9000 | A000 | B000 | C000 | D000 | E000 | FFFF</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>PEs </B>[on|off]</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>Changes the status of the Peripheral Enable Select bit in the target device, which effects memory commands such as Dump, Load, Fill, etc. The state of the bit toggles if no argument is given. This command is only available for DS5001FP, DS5002FP, and derivative parts.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>PGmode</P>
+</B></FONT><FONT FACE="Arial" SIZE=2><P>The DTR line from the PC COM port is raised to its active level.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>PRogram</B> (filename) [/edit] </P>
+</FONT><FONT FACE="Arial" SIZE=2><P>This command automates the programming of target devices by automatically configuring the memory control registers of the target device and downloads the Intel Hex file <I>filename</I>.hex. Script commands and configuration settings are located in the configuration file <I>filename</I>.cfg that initializes the target device and automatically downloads <I>filename</I>.hex to the target device. The configuration file is displayed before the part is programmed. The <I>/edit</I> switch allows the current configuration file to be edited one line at a time.</P>
+<P>If the configuration file <I>filename</I>.cfg does not exist, the operator will be prompted for the necessary information and a new configuration file will be created. If <I>filename</I>.cfg does exist, the command will proceed to program the target device and display the configuration settings on the screen. If the Intel Hex file does not exist, the program will report an error message.</P>
+<I><P>Example (Creating new configuration file for DS5000):</P>
+</I></FONT><FONT FACE="Courier New" SIZE=2><P>kit&gt; program newhex.hex<BR>
+Configuration:  Press return for default value.<BR>
+   range (32k) = 32k<BR>
+   partition (1000) = 3000<BR>
+   locking (no) = yes<BR>
+   verify (yes) = yes<BR>
+   encryption (no) = yes<BR>
+   key (random) = random<BR>
+<BR>
+Configuration Contents:<BR>
+   range:  32k<BR>
+   partition:  3000<BR>
+   locking:  yes<BR>
+   verify:  yes<BR>
+   encryption:  yes<BR>
+   key:  random<BR>
+<BR>
+Unlocking...<BR>
+Clearing MCON...<BR>
+Setting Range...<BR>
+Setting Partition...<BR>
+Setting Password...<BR>
+Loading...<BR>
+Verifying...<BR>
+Locking...<BR>
+</FONT><I><FONT FACE="Arial" SIZE=2>Example (Using existing configuration file for DS5000):<BR>
+</I></FONT><FONT FACE="Courier New" SIZE=2>kit&gt; program newhex.hex<BR>
+in exist<BR>
+<BR>
+Configuration Contents:<BR>
+   range:  32k<BR>
+   partition:  1000<BR>
+   locking:  no<BR>
+   verify:  yes<BR>
+   encryption:  no<BR>
+   key:  random<BR>
+<BR>
+Unlocking...<BR>
+Clearing MCON...<BR>
+Setting Range...<BR>
+Setting Partition...<BR>
+Loading...<BR>
+Verifying...</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>PUt_port</B> (0 | 1 | 2 | 3) (value)</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>Write <I>value</I> to port 0, 1, 2, or 3. It not possible to alter port pins P3.0 and P3.1 as these two port pins are used for serial transmission. This command is not available on DS5000FP and derivatives utilizing bootstrap loaders earlier than version 2.2.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>Quit</P>
+</B></FONT><FONT FACE="Arial" SIZE=2><P>Buffers and files are closed, the communication ports are cleared and the program is exited. The DTR signal on the PC COM port retains its last state before exiting. Same as Exit.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>Range</B> (range_value)</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>Configure the range bits of the target device for the requested memory configuration. Allowed range values are:</P>
+<P>DS5000FP:&#9;8k | 32k</P>
+<P>DS5001FP, DS5002FP:</P>
+<P>Variable partitions:&#9;8k | 16k | 32k | 64k</P>
+<P>Fixed partitions (code, data):&#9;32k 64k | 64k 32k | 64k 64k | 128k </P>
+<I><P>Example:</P>
+</I></FONT><FONT FACE="Courier New" SIZE=2><P>kit&gt; range 8k<BR>
+kit&gt; range 64k 32k</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>Read</P>
+</B></FONT><FONT FACE="Arial" SIZE=2><P>Displays the contents of the memory configuration registers in the target device. The display includes the status of the MSL bit, which indicates whether memory operations in the 128K mode will access code memory (MSL=1) or data memory (MSL=0).</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>RELoad</B> (value)</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>Sets the reload rate of the PC 8250 UART, allowing a wider selection of baud rates. The baud rate is selected by the formula 115200/<I>value</I> where <I>value</I> is the reload number.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>REMark</P>
+</B></FONT><FONT FACE="Arial" SIZE=2><P>This command, used in batch files, indicates that the line is a comment and is not to be executed. The message following the REMARK command is displayed on the screen then the batch file is executed by the DO command or via the command line.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>RUn</P>
+</B></FONT><FONT FACE="Arial" SIZE=2><P>The DTR line from the PC COM port is dropped to its inactive level.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>SEnd</B> (filename)</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>The data from <I>filename</I> is downloaded to the target device. Unlike the Load command, this command accepts files of any type (ASCII, binary, Intel Hex, etc.) and directly transmits them to the serial port of the target device without error checking.</P>
+<I><P>Example:</P>
+</I></FONT><FONT FACE="Courier New" SIZE=2><P>kit&gt; send rtfm.txt</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>SPeed</B> (value)</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>Sets the communication speed with the target system. Any integer divisor of 115200 may be entered. Faster computers may want to use 57600. If you have communication problems, it may be more reliable to work at slower speeds such as 9600. Finer control of the baud rate can be obtained with the RELOAD command.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>Status</P>
+</B></FONT><FONT FACE="Arial" SIZE=2><P>Display the current status of the target device.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>Term</P>
+</B></FONT><FONT FACE="Arial" SIZE=2><P>Change from Kit mode to terminal emulation mode. This allows direct access to the bootstrap loader of the target device. Many of the kit commands are available from this mode at the &quot;</FONT><FONT FACE="Courier New" SIZE=2>dt&gt;</FONT><FONT FACE="Arial" SIZE=2>&quot; prompt, which is available by pressing the &quot;ESC&quot; key. Online help is also available as with KIT mode.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>TIme</B> (SET | READ | ON | OFF)</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>Accesses the DS1283 Watchdog Timekeeper RTC in the DS2251T or DS2252T Microcontroller Modules. The Read command will read the time from the module and display it on the PC screen along with the current PC time. The Set command will set the module’s RTC time to match the current PC time. The On or Off option will disable the RTC’s oscillator.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>TYpe</B> (filename)</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>Display the requested file on the screen.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>Unasm</B> [beg-addr end-addr]</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>Unassemble the program RAM of the target device and display the results to the screen. Specify optional start and stop addresses for disassembly.</P>
+<I><P>Example:</P>
+</I></FONT><FONT FACE="Courier New" SIZE=2><P>kit&gt; unasm 33 3D<BR>
+0033  75A882  MOV   IE,#082H<BR>
+0036  80FE    SJMP  00036H<BR>
+0038  D80C    DJNZ  R0,00046H<BR>
+003A  7801    MOV   R0,#001H<BR>
+003C  E590    MOV   A,P1</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>UNLock</P>
+</B></FONT><FONT FACE="Arial" SIZE=2><P>Clear the Security Lock bit on the microcontroller. This erases the encryption key and memory of the device.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>Verify</B> (filename) [beg-addr, end-addr]</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>The contents of embedded RAM are compared against the data in <I>filename</I>, and any discrepancies will be reported. The optional beginning and ending addresses will determine what parts of the input file will be used for verification. The beginning and ending addresses are positional and will default to zero and to the current range value if not specified. Arguments are entered as hexadecimal numbers.</P>
+<I><P>Example:</P>
+</I></FONT><FONT FACE="Courier New" SIZE=2><P>kit&gt; verify testfile.hex<BR>
+   No Verification errors<BR>
+<BR>
+kit&gt; verify errors.hex<BR>
+Address CmpVal MemVal<BR>
+ 0007H   75H    65H<BR>
+ 0037H   78H    73H</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>WAit </B>(value)</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>Delays (<I>value</I> x 55) ms. Any keyboard character will abort the wait period. This command is used in conjunction with script files to incorporate a delay function into automated commands.</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><P>TERMINAL EMULATOR MODE COMMANDS</P>
+</B></FONT><FONT FACE="Arial" SIZE=2><P>This section discusses commands that are unique or different in the terminal mode. A complete list of commands for this mode is given in a prior section. Most commands in terminal emulator mode are entered at the dt&gt; prompt, which accessed by pressing the [Esc] key.</P>
+<P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>CApture</B> [on | off]</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>When toggled on, the capture command captures data output to the screen and saves it to PC memory. When toggled off, the program prompts the user for a filename so the data can be saved to a file. Entering no argument will toggle the state of the capture command.</P>
+<P>&nbsp;</P>
+<I><P>Example:</P>
+</I></FONT><FONT FACE="Courier New" SIZE=2><P>dt&gt; capture on<BR>
+      [operations occur with display data on the PC display]<BR>
+      [User presses Esc key when complete]<BR>
+dt&gt; capture<BR>
+Enter filename to save capture buffer, CR to discard.<BR>
+   Filename:</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>DEbug</P>
+</B></FONT><FONT FACE="Arial" SIZE=2><P>Displays non-printing data received from target device as hex value.</P>
+<I><P>Example (Target device transmits three CR/LF characters to the PC):</P>
+</I></FONT><FONT FACE="Courier New" SIZE=2><P>dt&gt; debug<BR>
+<BR>
+    &lt;DEBUG ON&gt;<BR>
+<BR>
+&lt;0D&gt;&lt;OA&gt; &lt;0D&gt;&lt;OA&gt; &lt;0D&gt;&lt;OA&gt;</P>
+</FONT><FONT FACE="Arial" SIZE=2><P>&nbsp;</P>
+</FONT><B><FONT FACE="Arial"><P>KIT</P>
+</B></FONT><FONT FACE="Arial" SIZE=2><P>Exit terminal emulator mode and return to Kit mode.</P></FONT></BODY>
+</HTML>

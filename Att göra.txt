@@ -1,0 +1,35 @@
+Att implementera:
+
+*	Spara dokument med data					[OK]
+*	Skriva ut dokument						[      ]
+*	Införa SetModified där det behövs					[OK]
+*	Införa LogicView						[OK]
+*	Uppdatera View när triggerdelay ändras				[OK]
+*	Införa stabila avslut när scope är aktivt				[OK]
+*	Inför sweep mode: Auto 					[OK]
+*	Rita trigg level pilar						[OK]
+*	Ändra trigglevel när V/Div ändras					[OK]
+	- Om V/Div ändras skall trigg level räknas om.
+	- Önskad trigglevelV skall sparas vid byte av trigglevel
+	- Om omräkning ger trigg nivån för hög blir den max-1 (eller min+1 vid min)
+*	Ta bort slumpmässig kurvor vid uppstart				[OK]
+*	Införa att endast spänningen går att ställa in på triggre level, släpp		[Införs Ej]
+	helt kopplingen till den binära nivån.
+*	Expandera trigg delay dragregalget till att hela området skall gälla buffer size	[OK]
+*	Hindra BufferSize från att ändras under ett svep				[OK]
+*	Hantera så att probe/pod active kan ändras mitt i svep			[OK]
+*	Implementera punkt ritning					[OK]
+*	Implementera ej radering av linjer/punkter				[OK]
+*	Justera position på probe view, dragbar i probe info view			[OK]
+*	Gör pilarna på trigg level dragbara					[OK]
+*	Inför markörer						[OK]
+	- Tid/Frekvens i båda vyer
+	- Spänning i probe view
+	- Valbar kanal för spänningsprobe
+*	Inför Frekvensanalys av probe värde				[      ]
+*	Inför FFT							[      ]
+*	Lägg till olika representationer (bin, hex, dec, unsigned...) på logic view		[OK]
+*	Lägg till val av konfigurationsfil för FPGA				[      ]
+*	Lägg till exportmöjlighter					[OK]
+
+					

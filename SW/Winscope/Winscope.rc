@@ -1,0 +1,1045 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\Winscope.ico"
+IDR_WINSCOTYPE          ICON                    "res\\WsWaveDoc.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_MAINFRAME           BITMAP                  "res\\Toolbar.bmp"
+IDR_WINSCOTYPE          BITMAP                  "res\\mainfram.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_MAINFRAME TOOLBAR  16, 15
+BEGIN
+    BUTTON      ID_FILE_NEW
+    BUTTON      ID_FILE_OPEN
+    BUTTON      ID_FILE_SAVE
+    SEPARATOR
+    BUTTON      ID_EDIT_CUT
+    BUTTON      ID_EDIT_COPY
+    BUTTON      ID_EDIT_PASTE
+    SEPARATOR
+    BUTTON      ID_FILE_PRINT
+    SEPARATOR
+    BUTTON      ID_SCOPE_CLAIMSCOPEOWNERSHIP
+    SEPARATOR
+    BUTTON      ID_SCOPE_RUNSCOPE
+    BUTTON      ID_SCOPE_STOPSCOPE
+    SEPARATOR
+    BUTTON      ID_VIEW_ZOOMIN
+    BUTTON      ID_VIEW_ZOOMOUT
+    BUTTON      ID_VIEW_FITALL
+    BUTTON      ID_VIEW_NOZOOM
+    SEPARATOR
+    BUTTON      ID_SCOPE_DRAWWITHDOTS
+    BUTTON      ID_SCOPE_NOERASE
+    BUTTON      ID_VIEW_DISPLAYGRID
+    SEPARATOR
+    BUTTON      ID_VIEW_CURSORX
+    BUTTON      ID_VIEW_CURSORY
+    BUTTON      ID_VIEW_VOLTAGECURSORA
+    BUTTON      ID_VIEW_VOLTAGECURSORB
+    SEPARATOR
+    BUTTON      ID_APP_ABOUT
+END
+
+IDR_WINSCOTYPE TOOLBAR  16, 15
+BEGIN
+    BUTTON      ID_FILE_NEW
+    BUTTON      ID_FILE_OPEN
+    BUTTON      ID_FILE_SAVE
+    SEPARATOR
+    BUTTON      ID_EDIT_CUT
+    BUTTON      ID_EDIT_COPY
+    BUTTON      ID_EDIT_PASTE
+    SEPARATOR
+    BUTTON      ID_FILE_PRINT
+    SEPARATOR
+    BUTTON      ID_APP_ABOUT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N",                ID_FILE_NEW
+        MENUITEM "&Open...\tCtrl+O",            ID_FILE_OPEN
+        MENUITEM SEPARATOR
+        MENUITEM "P&rint Setup...",             ID_FILE_PRINT_SETUP
+        MENUITEM SEPARATOR
+        MENUITEM "Recent File",                 ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       ID_APP_EXIT
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Toolbar",                    ID_VIEW_TOOLBAR
+        MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
+    END
+    POPUP "&HW"
+    BEGIN
+        MENUITEM "&Select Configuration File",  ID_HW_SELECTCONFIGURATIONFILE
+
+        MENUITEM "Configure Hardware",          ID_HW_CONFIGUREHARDWARE
+        MENUITEM "Get FW versions",             ID_HW_GETFWVERSIONS
+        MENUITEM "Start infinite loop in thread", 
+                                                ID_HW_STARTINFINITELOOPINTHREAD
+
+    END
+    POPUP "&Window"
+    BEGIN
+        MENUITEM "FRHA Scope Control Window",   ID_VIEW_WINSCOPE_CONTROL_WINDOW
+
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About FRHA Scope...",        ID_APP_ABOUT
+    END
+END
+
+IDR_WINSCOTYPE MENU 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N",                ID_FILE_NEW
+        MENUITEM "&Open...\tCtrl+O",            ID_FILE_OPEN
+        MENUITEM "&Close",                      ID_FILE_CLOSE
+        MENUITEM "&Save\tCtrl+S",               ID_FILE_SAVE
+        MENUITEM "Save &As...",                 ID_FILE_SAVE_AS
+        MENUITEM SEPARATOR
+        MENUITEM "Setup A&utosave...",          ID_FILE_SETUPAUTOSAVE
+        MENUITEM SEPARATOR
+        MENUITEM "&Export to CSV...",           ID_FILE_EXPORTTOCSV
+        MENUITEM "Export to &Metafile...",      ID_FILE_EXPORTTOMETAFILE
+        MENUITEM SEPARATOR
+        MENUITEM "&Print...\tCtrl+P",           ID_FILE_PRINT
+        MENUITEM "Print Pre&view",              ID_FILE_PRINT_PREVIEW
+        MENUITEM "P&rint Setup...",             ID_FILE_PRINT_SETUP
+        MENUITEM SEPARATOR
+        MENUITEM "Recent File",                 ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       ID_APP_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "&Undo\tCtrl+Z",               ID_EDIT_UNDO
+        MENUITEM SEPARATOR
+        MENUITEM "Cu&t\tCtrl+X",                ID_EDIT_CUT
+        MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY
+        MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Toolbar",                    ID_VIEW_TOOLBAR
+        MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
+        MENUITEM SEPARATOR
+        MENUITEM "Zoom &In",                    ID_VIEW_ZOOMIN
+        MENUITEM "Zoom &Out",                   ID_VIEW_ZOOMOUT
+        MENUITEM "&Fit all",                    ID_VIEW_FITALL
+        MENUITEM "&No Zoom",                    ID_VIEW_NOZOOM
+        MENUITEM SEPARATOR
+        MENUITEM "Cursor &X",                   ID_VIEW_CURSORX
+        MENUITEM "Cursor &Y",                   ID_VIEW_CURSORY
+        MENUITEM "Voltage Cursor &A",           ID_VIEW_VOLTAGECURSORA
+        MENUITEM "Voltage Cursor &B",           ID_VIEW_VOLTAGECURSORB
+        MENUITEM SEPARATOR
+        MENUITEM "Draw with &dots",             ID_SCOPE_DRAWWITHDOTS
+        MENUITEM "No &Erase",                   ID_SCOPE_NOERASE
+        MENUITEM "Display &Grid",               ID_VIEW_DISPLAYGRID
+    END
+    POPUP "&Scope"
+    BEGIN
+        MENUITEM "Claim Scope &Ownership",      ID_SCOPE_CLAIMSCOPEOWNERSHIP
+        MENUITEM "&Run Scope",                  ID_SCOPE_RUNSCOPE
+        MENUITEM "&Stop Scope",                 ID_SCOPE_STOPSCOPE
+        MENUITEM "&Query Sweep State",          ID_SCOPE_QUERYSWEEPSTATE
+    END
+    POPUP "&HW"
+    BEGIN
+        MENUITEM "&Select Configuration File",  ID_HW_SELECTCONFIGURATIONFILE
+
+        MENUITEM "Configure Hardware",          ID_HW_CONFIGUREHARDWARE
+        MENUITEM "Get FW versions",             ID_HW_GETFWVERSIONS
+        MENUITEM "Start infinite loop in thread", 
+                                                ID_HW_STARTINFINITELOOPINTHREAD
+
+    END
+    POPUP "&Window"
+    BEGIN
+        MENUITEM "&New Window",                 ID_WINDOW_NEW
+        MENUITEM "&Cascade",                    ID_WINDOW_CASCADE
+        MENUITEM "&Tile",                       ID_WINDOW_TILE_HORZ
+        MENUITEM "&Arrange Icons",              ID_WINDOW_ARRANGE
+        MENUITEM "S&plit",                      ID_WINDOW_SPLIT
+        MENUITEM SEPARATOR
+        MENUITEM "FRHA Scope Control Window",   ID_VIEW_WINSCOPE_CONTROL_WINDOW
+
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About FRHA Scope...",        ID_APP_ABOUT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS 
+BEGIN
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
+    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 235, 55
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About FRHA Scope"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "FRHA Scope Version 1.2",IDC_STATIC,40,10,119,8,
+                    SS_NOPREFIX
+    LTEXT           "Copyright (C) 2003",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "OK",IDOK,178,7,50,14,WS_GROUP
+END
+
+IDD_FORMAT DIALOG  0, 0, 153, 302
+STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "Format"
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         "List1",IDC_LABEL_LIST,"SysListView32",LVS_REPORT | 
+                    LVS_SHOWSELALWAYS | LVS_NOLABELWRAP | LVS_NOSORTHEADER | 
+                    WS_BORDER | WS_TABSTOP,8,142,137,123
+    PUSHBUTTON      "Remove",IDC_REMOVE_LABEL,100,273,36,14
+    EDITTEXT        IDC_LABEL_NAME,69,68,66,12,ES_AUTOHSCROLL
+    LTEXT           "Label name",IDC_STATIC,18,70,38,8
+    PUSHBUTTON      "Add",IDC_ADD_LABEL,17,273,36,14
+    CONTROL         "",IDC_SYMBIT_P7,"Button",BS_AUTOCHECKBOX | BS_PUSHLIKE | 
+                    WS_GROUP | WS_TABSTOP,12,106,8,8
+    CONTROL         "",IDC_SYMBIT_P6,"Button",BS_AUTOCHECKBOX | BS_PUSHLIKE | 
+                    WS_TABSTOP,20,106,8,8
+    CONTROL         "",IDC_SYMBIT_P5,"Button",BS_AUTOCHECKBOX | BS_PUSHLIKE | 
+                    WS_TABSTOP,28,106,8,8
+    CONTROL         "",IDC_SYMBIT_P4,"Button",BS_AUTOCHECKBOX | BS_PUSHLIKE | 
+                    WS_TABSTOP,36,106,8,8
+    CONTROL         "",IDC_SYMBIT_P3,"Button",BS_AUTOCHECKBOX | BS_PUSHLIKE | 
+                    WS_TABSTOP,44,106,8,8
+    CONTROL         "",IDC_SYMBIT_P2,"Button",BS_AUTOCHECKBOX | BS_PUSHLIKE | 
+                    WS_TABSTOP,52,106,8,8
+    CONTROL         "",IDC_SYMBIT_P1,"Button",BS_AUTOCHECKBOX | BS_PUSHLIKE | 
+                    WS_TABSTOP,60,106,8,8
+    CONTROL         "",IDC_SYMBIT_P0,"Button",BS_AUTOCHECKBOX | BS_PUSHLIKE | 
+                    WS_TABSTOP,68,106,8,8
+    CONTROL         "",IDC_SYMBIT_Q7,"Button",BS_AUTOCHECKBOX | BS_PUSHLIKE | 
+                    WS_GROUP | WS_TABSTOP,76,106,8,8
+    CONTROL         "",IDC_SYMBIT_Q6,"Button",BS_AUTOCHECKBOX | BS_PUSHLIKE | 
+                    WS_TABSTOP,84,106,8,8
+    CONTROL         "",IDC_SYMBIT_Q5,"Button",BS_AUTOCHECKBOX | BS_PUSHLIKE | 
+                    WS_TABSTOP,92,106,8,8
+    CONTROL         "",IDC_SYMBIT_Q4,"Button",BS_AUTOCHECKBOX | BS_PUSHLIKE | 
+                    WS_TABSTOP,100,106,8,8
+    CONTROL         "",IDC_SYMBIT_Q3,"Button",BS_AUTOCHECKBOX | BS_PUSHLIKE | 
+                    WS_TABSTOP,108,106,8,8
+    CONTROL         "",IDC_SYMBIT_Q2,"Button",BS_AUTOCHECKBOX | BS_PUSHLIKE | 
+                    WS_TABSTOP,116,106,8,8
+    CONTROL         "",IDC_SYMBIT_Q1,"Button",BS_AUTOCHECKBOX | BS_PUSHLIKE | 
+                    WS_TABSTOP,124,106,8,8
+    CONTROL         "",IDC_SYMBIT_Q0,"Button",BS_AUTOCHECKBOX | BS_PUSHLIKE | 
+                    WS_TABSTOP,132,106,8,8
+    PUSHBUTTON      "Modify",IDC_MODIFY_LABEL,59,273,36,14
+    GROUPBOX        "Label Definition",IDC_STATIC,7,51,139,244
+    GROUPBOX        "Probe and Pod activation",IDC_STATIC,7,7,139,38
+    CONTROL         "Probe A",IDC_PRB_A_ACTIVE,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,25,18,41,10
+    CONTROL         "Probe B",IDC_PRB_B_ACTIVE,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,25,30,41,10
+    CONTROL         "Pod P",IDC_POD_P_ACTIVE,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,89,18,35,10
+    CONTROL         "Pod Q",IDC_POD_Q_ACTIVE,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,89,30,36,10
+    CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME,76,95,64,10
+    CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME,12,95,64,10
+    CTEXT           "P",IDC_STATIC,40,86,8,8
+    CTEXT           "Q",IDC_STATIC,104,86,8,8
+    LTEXT           "Radix",IDC_STATIC,37,123,19,8
+    COMBOBOX        IDC_VIEW_RADIX,69,121,66,89,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_SAMPLE_LOGGING DIALOG  0, 0, 153, 302
+STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "Sample Logging"
+FONT 8, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "Sample logging",-1,7,7,138,125,WS_DISABLED
+    LTEXT           "Probe A",-1,18,22,26,8,WS_DISABLED
+    LTEXT           "Probe B",-1,19,44,26,8,WS_DISABLED
+    EDITTEXT        IDC_EDIT3,48,20,43,12,ES_AUTOHSCROLL | ES_READONLY | 
+                    WS_DISABLED
+    EDITTEXT        IDC_EDIT4,50,42,43,12,ES_AUTOHSCROLL | ES_READONLY | 
+                    WS_DISABLED
+    LTEXT           "V",-1,97,22,8,8,WS_DISABLED
+    LTEXT           "V",-1,97,44,8,8,WS_DISABLED
+    CONTROL         "Log Activation",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | 
+                    WS_DISABLED | WS_TABSTOP,46,114,61,10
+    LTEXT           "Sample intervall",-1,18,69,50,8,WS_DISABLED
+    EDITTEXT        IDC_EDIT5,43,91,76,12,ES_AUTOHSCROLL | ES_READONLY | 
+                    WS_DISABLED
+    PUSHBUTTON      "...",IDC_BUTTON4,125,92,14,10,WS_DISABLED
+    LTEXT           "Log file",-1,15,92,24,8,WS_DISABLED
+    COMBOBOX        IDC_COMBO6,74,66,46,119,CBS_DROPDOWN | WS_DISABLED | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "S",-1,122,69,8,8,WS_DISABLED
+END
+
+IDD_SAMPLING DIALOG  0, 0, 153, 302
+STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "Sampling"
+FONT 8, "MS Sans Serif"
+BEGIN
+    COMBOBOX        IDC_A_VPERDIV,13,17,34,185,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    CONTROL         "DC",IDC_A_INPUT,"Button",BS_AUTORADIOBUTTON | WS_GROUP,
+                    20,35,26,10
+    CONTROL         "AC",IDC_A_I_AC,"Button",BS_AUTORADIOBUTTON,20,49,25,10
+    CONTROL         "GND",IDC_A_I_GND,"Button",BS_AUTORADIOBUTTON,20,63,32,
+                    10
+    COMBOBOX        IDC_B_VPERDIV,87,17,34,171,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    CONTROL         "DC",IDC_B_INPUT,"Button",BS_AUTORADIOBUTTON | WS_GROUP,
+                    97,35,26,10
+    CONTROL         "AC",IDC_B_I_AC,"Button",BS_AUTORADIOBUTTON,97,49,25,10
+    CONTROL         "GND",IDC_B_I_GND,"Button",BS_AUTORADIOBUTTON,97,63,32,
+                    10
+    CONTROL         "Internal",IDC_CLOCK_SELECTION,"Button",
+                    BS_AUTORADIOBUTTON | WS_GROUP,20,100,39,10
+    CONTROL         "External",IDC_CLOCK_SEL_EXT,"Button",BS_AUTORADIOBUTTON,
+                    20,119,41,10
+    COMBOBOX        IDC_TPERDIV,91,102,43,143,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    CONTROL         "Normal",IDC_SM_NORMAL,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP,14,159,38,10
+    CONTROL         "Auto",IDC_SM_AUTO,"Button",BS_AUTORADIOBUTTON,61,159,31,
+                    10
+    CONTROL         "Single",IDC_SWEEP_MODE,"Button",BS_AUTORADIOBUTTON,101,
+                    159,35,10
+    EDITTEXT        IDC_TRIGGER_DELAY,64,197,40,12,ES_AUTOHSCROLL
+    CONTROL         "Slider1",IDC_TRIG_DELY_SLIDER,"msctls_trackbar32",
+                    TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,13,212,126,10
+    EDITTEXT        IDC_BUFFER_SIZE,64,264,40,12,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    CONTROL         "Slider1",IDC_BUF_SIZE_SLIDER,"msctls_trackbar32",
+                    TBS_BOTH | TBS_NOTICKS | WS_DISABLED | WS_TABSTOP,13,280,
+                    126,10
+    LTEXT           "Buffer Size",IDC_STATIC,17,265,35,8
+    GROUPBOX        "Buffer Size",IDC_STATIC,7,253,138,42
+    GROUPBOX        "Channel A",IDC_STATIC,7,7,65,73
+    GROUPBOX        "Channel B",IDC_STATIC,80,7,65,73
+    LTEXT           "V/Div",IDC_STATIC,49,19,20,8
+    LTEXT           "V/Div",IDC_STATIC,123,19,20,8
+    LTEXT           "S/Div",IDC_STATIC,113,119,20,8
+    GROUPBOX        "Clocking",IDC_STATIC,7,85,65,55
+    GROUPBOX        "Time Base",IDC_STATIC,80,85,65,55
+    GROUPBOX        "Sweep control",IDC_STATIC,7,143,138,36
+    GROUPBOX        "Trigger delay",IDC_STATIC,7,186,138,42
+    LTEXT           "Trigger Delay",IDC_STATIC,16,198,43,8
+    PUSHBUTTON      "Advanced...",IDC_NON_SWEEP_SETTINGS,95,234,50,14
+END
+
+IDD_TRIGGER DIALOG  0, 0, 153, 302
+STYLE DS_SETFONT | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "Trigger"
+FONT 8, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "Probe Trigger",IDC_STATIC,7,45,139,120
+    CONTROL         "Trigger on A",IDC_PRB_TRIGG_SRC,"Button",
+                    BS_AUTORADIOBUTTON | WS_GROUP,17,59,55,10
+    GROUPBOX        "Trigger function",IDC_STATIC,7,7,139,35
+    COMBOBOX        IDC_TRIGG_FUNCTION,13,20,127,110,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Trigger on B",IDC_PRB_TRIGG_SRC_B,"Button",
+                    BS_AUTORADIOBUTTON,81,59,55,10
+    SCROLLBAR       IDC_LVL_A_SCROLLBAR,62,76,10,48,SBS_VERT
+    CONTROL         "Negative",IDC_PRB_TRIGG_SLOPE,"Button",
+                    BS_AUTORADIOBUTTON | WS_GROUP,31,141,45,10
+    CONTROL         "Positive",IDC_PRB_TRIGG_SLOPE_NEG,"Button",
+                    BS_AUTORADIOBUTTON,84,141,41,10
+    GROUPBOX        "Slope",IDC_STATIC,17,130,119,28
+    EDITTEXT        IDC_PRB_TRG_LVL_A_VOLT,23,105,28,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    SCROLLBAR       IDC_LVL_B_SCROLLBAR,126,77,10,48,SBS_VERT
+    EDITTEXT        IDC_PRB_TRG_LVL_B_VOLT,89,105,26,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    GROUPBOX        "External Trigg Slope",IDC_STATIC,7,169,139,28
+    CONTROL         "Negative",IDC_EXT_PRB_TRIGG_SLOPE,"Button",
+                    BS_AUTORADIOBUTTON | WS_GROUP,34,181,45,10
+    CONTROL         "Positive",IDC_EXT_PRB_TRIGG_SLOPE_NEG,"Button",
+                    BS_AUTORADIOBUTTON,84,181,41,10
+    GROUPBOX        "Symbol Pattern",IDC_STATIC,7,201,139,48
+    COMBOBOX        IDC_PTRN_SYMBOL,15,229,76,79,CBS_DROPDOWNLIST | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_TRIGG_PTRN,96,228,40,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_PTRN_RADIX,96,211,40,59,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Symbol",IDC_STATIC,15,219,24,8
+    LTEXT           "Radix",IDC_STATIC,72,214,19,8
+    LTEXT           "V",IDC_STATIC,53,107,8,8
+    LTEXT           "V",IDC_STATIC,117,107,8,8
+    GROUPBOX        "Symbol Edge",IDC_STATIC,7,252,139,42
+    COMBOBOX        IDC_EDGE_SYMBOL,15,275,76,79,CBS_DROPDOWNLIST | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Symbol",IDC_STATIC,15,265,24,8
+    CONTROL         "Negative",IDC_SYMBOL_EDGE,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP,97,263,45,10
+    CONTROL         "Positive",IDC_SYMBOL_EDGE_NEG,"Button",
+                    BS_AUTORADIOBUTTON,97,277,41,10
+    GROUPBOX        "A Level",IDC_STATIC,17,73,45,51
+    GROUPBOX        "B Level",IDC_STATIC,81,74,45,51
+    EDITTEXT        IDC_PRB_TRG_LVL_A,23,87,28,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_PRB_TRG_LVL_B,89,87,26,12,ES_AUTOHSCROLL
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,2
+ PRODUCTVERSION 1,0,0,2
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "FileDescription", "FRHA Scope MFC Application"
+            VALUE "FileVersion", "1, 0, 0, 2"
+            VALUE "InternalName", "FRHA Scope"
+            VALUE "LegalCopyright", "Copyright (C) 2005, Fredrik Hoffman"
+            VALUE "OriginalFilename", "FRHA Scope.EXE"
+            VALUE "ProductName", "FRHA Scope Application"
+            VALUE "ProductVersion", "1, 0, 0, 2"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_FORMAT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 146
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 295
+    END
+
+    IDD_SAMPLE_LOGGING, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 145
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 295
+    END
+
+    IDD_SAMPLING, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 145
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 295
+    END
+
+    IDD_TRIGGER, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 146
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 295
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_SAMPLE_LOGGING DLGINIT
+BEGIN
+    IDC_COMBO6, 0x403, 4, 0
+0x2e30, 0x0031, 
+    IDC_COMBO6, 0x403, 4, 0
+0x2e30, 0x0032, 
+    IDC_COMBO6, 0x403, 4, 0
+0x2e30, 0x0035, 
+    IDC_COMBO6, 0x403, 2, 0
+0x0031, 
+    IDC_COMBO6, 0x403, 2, 0
+0x0032, 
+    IDC_COMBO6, 0x403, 2, 0
+0x0035, 
+    IDC_COMBO6, 0x403, 3, 0
+0x3031, "\000" 
+    IDC_COMBO6, 0x403, 3, 0
+0x3032, "\000" 
+    IDC_COMBO6, 0x403, 3, 0
+0x3035, "\000" 
+    IDC_COMBO6, 0x403, 4, 0
+0x3031, 0x0030, 
+    IDC_COMBO6, 0x403, 4, 0
+0x3032, 0x0030, 
+    IDC_COMBO6, 0x403, 4, 0
+0x3035, 0x0030, 
+    0
+END
+
+IDD_SAMPLING DLGINIT
+BEGIN
+    IDC_A_VPERDIV, 0x403, 3, 0
+0x3035, "\000" 
+    IDC_A_VPERDIV, 0x403, 3, 0
+0x3032, "\000" 
+    IDC_A_VPERDIV, 0x403, 3, 0
+0x3031, "\000" 
+    IDC_A_VPERDIV, 0x403, 2, 0
+0x0035, 
+    IDC_A_VPERDIV, 0x403, 2, 0
+0x0032, 
+    IDC_A_VPERDIV, 0x403, 2, 0
+0x0031, 
+    IDC_A_VPERDIV, 0x403, 5, 0
+0x3035, 0x6d30, "\000" 
+    IDC_A_VPERDIV, 0x403, 5, 0
+0x3032, 0x6d30, "\000" 
+    IDC_A_VPERDIV, 0x403, 5, 0
+0x3031, 0x6d30, "\000" 
+    IDC_A_VPERDIV, 0x403, 4, 0
+0x3035, 0x006d, 
+    IDC_A_VPERDIV, 0x403, 4, 0
+0x3032, 0x006d, 
+    IDC_A_VPERDIV, 0x403, 4, 0
+0x3031, 0x006d, 
+    IDC_B_VPERDIV, 0x403, 3, 0
+0x3035, "\000" 
+    IDC_B_VPERDIV, 0x403, 3, 0
+0x3032, "\000" 
+    IDC_B_VPERDIV, 0x403, 3, 0
+0x3031, "\000" 
+    IDC_B_VPERDIV, 0x403, 2, 0
+0x0035, 
+    IDC_B_VPERDIV, 0x403, 2, 0
+0x0032, 
+    IDC_B_VPERDIV, 0x403, 2, 0
+0x0031, 
+    IDC_B_VPERDIV, 0x403, 5, 0
+0x3035, 0x6d30, "\000" 
+    IDC_B_VPERDIV, 0x403, 5, 0
+0x3032, 0x6d30, "\000" 
+    IDC_B_VPERDIV, 0x403, 5, 0
+0x3031, 0x6d30, "\000" 
+    IDC_B_VPERDIV, 0x403, 4, 0
+0x3035, 0x006d, 
+    IDC_B_VPERDIV, 0x403, 4, 0
+0x3032, 0x006d, 
+    IDC_B_VPERDIV, 0x403, 4, 0
+0x3031, 0x006d, 
+    IDC_TPERDIV, 0x403, 5, 0
+0x3035, 0x6d30, "\000" 
+    IDC_TPERDIV, 0x403, 5, 0
+0x3032, 0x6d30, "\000" 
+    IDC_TPERDIV, 0x403, 5, 0
+0x3031, 0x6d30, "\000" 
+    IDC_TPERDIV, 0x403, 4, 0
+0x3035, 0x006d, 
+    IDC_TPERDIV, 0x403, 4, 0
+0x3032, 0x006d, 
+    IDC_TPERDIV, 0x403, 4, 0
+0x3031, 0x006d, 
+    IDC_TPERDIV, 0x403, 3, 0
+0x6d35, "\000" 
+    IDC_TPERDIV, 0x403, 3, 0
+0x6d32, "\000" 
+    IDC_TPERDIV, 0x403, 3, 0
+0x6d31, "\000" 
+    IDC_TPERDIV, 0x403, 5, 0
+0x3035, 0x7530, "\000" 
+    IDC_TPERDIV, 0x403, 5, 0
+0x3032, 0x7530, "\000" 
+    IDC_TPERDIV, 0x403, 5, 0
+0x3031, 0x7530, "\000" 
+    IDC_TPERDIV, 0x403, 4, 0
+0x3035, 0x0075, 
+    IDC_TPERDIV, 0x403, 4, 0
+0x3032, 0x0075, 
+    IDC_TPERDIV, 0x403, 4, 0
+0x3031, 0x0075, 
+    IDC_TPERDIV, 0x403, 3, 0
+0x7535, "\000" 
+    IDC_TPERDIV, 0x403, 3, 0
+0x7532, "\000" 
+    IDC_TPERDIV, 0x403, 3, 0
+0x7531, "\000" 
+    0
+END
+
+IDD_TRIGGER DLGINIT
+BEGIN
+    IDC_TRIGG_FUNCTION, 0x403, 12, 0
+0x654e, 0x6576, 0x2072, 0x7274, 0x6769, 0x0067, 
+    IDC_TRIGG_FUNCTION, 0x403, 13, 0
+0x6c41, 0x6177, 0x7379, 0x7420, 0x6972, 0x6767, "\000" 
+    IDC_TRIGG_FUNCTION, 0x403, 11, 0
+0x7250, 0x626f, 0x2065, 0x6465, 0x6567, "\000" 
+    IDC_TRIGG_FUNCTION, 0x403, 14, 0
+0x7845, 0x6574, 0x6e72, 0x6c61, 0x6520, 0x6764, 0x0065, 
+    IDC_TRIGG_FUNCTION, 0x403, 25, 0
+0x7953, 0x626d, 0x6c6f, 0x6520, 0x6764, 0x2065, 0x7328, 0x6e69, 0x6c67, 
+0x2065, 0x6962, 0x2974, "\000" 
+    IDC_TRIGG_FUNCTION, 0x403, 15, 0
+0x7953, 0x626d, 0x6c6f, 0x7020, 0x7461, 0x6574, 0x6e72, "\000" 
+    IDC_TRIGG_FUNCTION, 0x403, 30, 0
+0x7953, 0x626d, 0x6c6f, 0x7020, 0x7461, 0x6574, 0x6e72, 0x6120, 0x646e, 
+0x7020, 0x6f72, 0x6562, 0x6520, 0x6764, 0x0065, 
+    IDC_TRIGG_FUNCTION, 0x403, 33, 0
+0x7953, 0x626d, 0x6c6f, 0x7020, 0x7461, 0x6574, 0x6e72, 0x6120, 0x646e, 
+0x6520, 0x7478, 0x7265, 0x616e, 0x206c, 0x6465, 0x6567, "\000" 
+    IDC_PTRN_RADIX, 0x403, 4, 0
+0x6548, 0x0078, 
+    IDC_PTRN_RADIX, 0x403, 4, 0
+0x6942, 0x006e, 
+    IDC_PTRN_RADIX, 0x403, 4, 0
+0x6544, 0x0063, 
+    0
+END
+
+IDD_FORMAT DLGINIT
+BEGIN
+    IDC_VIEW_RADIX, 0x403, 4, 0
+0x6548, 0x0078, 
+    IDC_VIEW_RADIX, 0x403, 4, 0
+0x6942, 0x006e, 
+    IDC_VIEW_RADIX, 0x403, 11, 0
+0x6953, 0x6e67, 0x6465, 0x4420, 0x6365, "\000" 
+    IDC_VIEW_RADIX, 0x403, 13, 0
+0x6e55, 0x6973, 0x6e67, 0x6465, 0x4420, 0x6365, "\000" 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDR_MAINFRAME           "FRHA Scope"
+    IDR_WINSCOTYPE          "\nScope File\nScope File\nFRHA Scope Files (*.wsw)\n.wsw\nFRHAScope.WaveDocument\nFRHA Scope File"
+END
+
+STRINGTABLE 
+BEGIN
+    AFX_IDS_APP_TITLE       "FRHA Scope"
+    AFX_IDS_IDLEMESSAGE     "Ready"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_INDICATOR_EXT        "EXT"
+    ID_INDICATOR_CAPS       "CAP"
+    ID_INDICATOR_NUM        "NUM"
+    ID_INDICATOR_SCRL       "SCRL"
+    ID_INDICATOR_OVR        "OVR"
+    ID_INDICATOR_REC        "REC"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_FILE_NEW             "Create a new document\nNew"
+    ID_FILE_OPEN            "Open an existing document\nOpen"
+    ID_FILE_CLOSE           "Close the active document\nClose"
+    ID_FILE_SAVE            "Save the active document\nSave"
+    ID_FILE_SAVE_AS         "Save the active document with a new name\nSave As"
+    ID_FILE_PAGE_SETUP      "Change the printing options\nPage Setup"
+    ID_FILE_PRINT_SETUP     "Change the printer and printing options\nPrint Setup"
+    ID_FILE_PRINT           "Print the active document\nPrint"
+    ID_FILE_PRINT_PREVIEW   "Display full pages\nPrint Preview"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_APP_ABOUT            "Display program information, version number and copyright\nAbout"
+    ID_APP_EXIT             "Quit the application; prompts to save documents\nExit"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_FILE_MRU_FILE1       "Open this document"
+    ID_FILE_MRU_FILE2       "Open this document"
+    ID_FILE_MRU_FILE3       "Open this document"
+    ID_FILE_MRU_FILE4       "Open this document"
+    ID_FILE_MRU_FILE5       "Open this document"
+    ID_FILE_MRU_FILE6       "Open this document"
+    ID_FILE_MRU_FILE7       "Open this document"
+    ID_FILE_MRU_FILE8       "Open this document"
+    ID_FILE_MRU_FILE9       "Open this document"
+    ID_FILE_MRU_FILE10      "Open this document"
+    ID_FILE_MRU_FILE11      "Open this document"
+    ID_FILE_MRU_FILE12      "Open this document"
+    ID_FILE_MRU_FILE13      "Open this document"
+    ID_FILE_MRU_FILE14      "Open this document"
+    ID_FILE_MRU_FILE15      "Open this document"
+    ID_FILE_MRU_FILE16      "Open this document"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_NEXT_PANE            "Switch to the next window pane\nNext Pane"
+    ID_PREV_PANE            "Switch back to the previous window pane\nPrevious Pane"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_WINDOW_NEW           "Open another window for the active document\nNew Window"
+    ID_WINDOW_ARRANGE       "Arrange icons at the bottom of the window\nArrange Icons"
+    ID_WINDOW_CASCADE       "Arrange windows so they overlap\nCascade Windows"
+    ID_WINDOW_TILE_HORZ     "Arrange windows as non-overlapping tiles\nTile Windows"
+    ID_WINDOW_TILE_VERT     "Arrange windows as non-overlapping tiles\nTile Windows"
+    ID_WINDOW_SPLIT         "Split the active window into panes\nSplit"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_EDIT_CLEAR           "Erase the selection\nErase"
+    ID_EDIT_CLEAR_ALL       "Erase everything\nErase All"
+    ID_EDIT_COPY            "Copy the selection and put it on the Clipboard\nCopy"
+    ID_EDIT_CUT             "Cut the selection and put it on the Clipboard\nCut"
+    ID_EDIT_FIND            "Find the specified text\nFind"
+    ID_EDIT_PASTE           "Insert Clipboard contents\nPaste"
+    ID_EDIT_REPEAT          "Repeat the last action\nRepeat"
+    ID_EDIT_REPLACE         "Replace specific text with different text\nReplace"
+    ID_EDIT_SELECT_ALL      "Select the entire document\nSelect All"
+    ID_EDIT_UNDO            "Undo the last action\nUndo"
+    ID_EDIT_REDO            "Redo the previously undone action\nRedo"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_VIEW_TOOLBAR         "Show or hide the toolbar\nToggle ToolBar"
+    ID_VIEW_STATUS_BAR      "Show or hide the status bar\nToggle StatusBar"
+END
+
+STRINGTABLE 
+BEGIN
+    AFX_IDS_SCSIZE          "Change the window size"
+    AFX_IDS_SCMOVE          "Change the window position"
+    AFX_IDS_SCMINIMIZE      "Reduce the window to an icon"
+    AFX_IDS_SCMAXIMIZE      "Enlarge the window to full size"
+    AFX_IDS_SCNEXTWINDOW    "Switch to the next document window"
+    AFX_IDS_SCPREVWINDOW    "Switch to the previous document window"
+    AFX_IDS_SCCLOSE         "Close the active window and prompts to save the documents"
+END
+
+STRINGTABLE 
+BEGIN
+    AFX_IDS_SCRESTORE       "Restore the window to normal size"
+    AFX_IDS_SCTASKLIST      "Activate Task List"
+    AFX_IDS_MDICHILD        "Activate this window"
+END
+
+STRINGTABLE 
+BEGIN
+    AFX_IDS_PREVIEW_CLOSE   "Close print preview mode\nCancel Preview"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_VIEW_WINSCOPE_CONTROL_WINDOW 
+                            "Display Winscope control window\nControl Window"
+    ID_HW_CONFIGUREHARDWARE "Configure Hardware\nConfigure Hardwar"
+    ID_HW_SELECTCONFIGURATIONFILE 
+                            "Select FPGA Configuration File\nSelect Configuration File"
+    ID_HW_GETFWVERSIONS     "Get FW Versions\nGet FW Versions"
+    ID_SCOPE_CLAIMSCOPEOWNERSHIP "Claim Scope Ownership\nOwn Scope"
+    ID_SCOPE_RUNSCOPE       "Run Scope\nRun"
+    ID_SCOPE_STOPSCOPE      "Stop Scope\nStop"
+    ID_SCOPE_QUERYSWEEPSTATE "Query Sweep state\nQuery state"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_SCOPE_STATE          "Document does not own scope"
+    ID_SCOPE_DEBUG_STATE    "This is a space in which scope debug information is suppoed to be displayed"
+    ID_DG_MOUSE_POINT       "x: 1280, y: 1024xxxx"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_SCOPE_DRAWWITHDOTS   "Draw with dots\nDots"
+    ID_SCOPE_NOERASE        "Do not erase view\nNo Erase"
+    ID_VIEW_ZOOMIN          "Zoom In\nZoom In"
+    ID_VIEW_ZOOMOUT         "Zoom Out/nZoom Out"
+    ID_VIEW_FITALL          "Zoom to fit all data in window\nFit All"
+    ID_VIEW_NOZOOM          "Zoom to one pixel per sample\nNo Zoom"
+    ID_VIEW_CORSORX         "Toggles Cursor X\nCursor X"
+    ID_VIEW_CURSORY         "Toggles Cursor Y\nCursor Y"
+    ID_VIEW_CURSORX         "Toggles Cursor X\nCursor X"
+    ID_VIEW_VOLTAGECURSORA  "Voltage Cursors Relates to probe A\nCursor to A"
+    ID_VIEW_VOLTAGECURSORB  "Voltage Cursors Relates to probe B\nCursor to B"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_FILE_EXPORTTOCSV     "Export sample data to text file\nExport data"
+    ID_FILE_EXPORTTOMETAFILE 
+                            "Export data to Windows Meta File\nExprt to Meta File"
+    ID_VIEW_DISPLAYGRID     "Display Grid in probe view\nDisplay Grid"
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Swedish resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_SVE)
+#ifdef _WIN32
+LANGUAGE LANG_SWEDISH, SUBLANG_DEFAULT
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_TEMP_PROGRESS DIALOG  0, 0, 186, 23
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         "Progress1",IDC_PROGRESS,"msctls_progress32",WS_BORDER,7,
+                    7,172,9
+END
+
+IDD_BUFFER_SETTING DIALOG  0, 0, 123, 46
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Buffer Size setting"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,7,25,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,66,25,50,14
+    EDITTEXT        IDC_BUFFER_SIZE,60,7,40,12,ES_AUTOHSCROLL
+    LTEXT           "Buffer Size",IDC_STATIC,17,9,35,8
+END
+
+IDD_SETUP_AUTOSAVE DIALOGEX 0, 0, 186, 131
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Setup Autosave Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,33,110,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,101,110,50,14
+    CONTROL         "Activate Autosave Function",IDC_AUTOSAVE_ACTIVE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,40,18,105,10
+    EDITTEXT        IDC_FILENAME_BASE,67,60,96,14,ES_AUTOHSCROLL
+    LTEXT           "Filename Base",IDC_STATIC,16,63,46,8
+    CONTROL         "Autoexport CSV also",IDC_AUTOEXPORT_CSV,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,40,38,82,10
+    EDITTEXT        IDC_NEXT_INDEX,67,79,40,14,ES_AUTOHSCROLL
+    LTEXT           "Next Index",IDC_STATIC,25,82,37,8
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_TEMP_PROGRESS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 16
+    END
+
+    IDD_BUFFER_SETTING, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 116
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 39
+    END
+
+    IDD_SETUP_AUTOSAVE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 124
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\Winscope.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#include ""afxprint.rc""       // printing/print preview resources\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+#endif    // Swedish resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif //_WIN32
+#include "res\Winscope.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#include "afxprint.rc"       // printing/print preview resources
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

@@ -1,0 +1,368 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
+<META NAME="Generator" CONTENT="Microsoft Word 97">
+<TITLE>Microcontroller Tool Kit - Help</TITLE>
+<META NAME="Template" CONTENT="C:\PROGRAM FILES\MICROSOFT OFFICE\OFFICE\html.dot">
+</HEAD>
+<BODY LINK="#0000ff" VLINK="#800080" BGCOLOR="#ffcc99">
+
+<B><FONT FACE="Arial" SIZE=4><P ALIGN="CENTER">Microcontroller Tool Kit</P>
+</B></FONT><FONT FACE="Arial" SIZE=2><P ALIGN="CENTER">[</FONT><A HREF="#overview">overview</A><FONT FACE="Arial" SIZE=2>]  [</FONT><A HREF="#loader">loader</A><FONT FACE="Arial" SIZE=2>]  [</FONT><A HREF="#interface">interface</A><FONT FACE="Arial" SIZE=2>]</P>
+<P><A NAME="overview"></A>Microcontroller Tool Kit is a collection of utilities to aid in the programming and debugging of microcontrollers manufactured by Dallas Semiconductor. This software requires Windows 95/98/2000/ME/NT or more recent operating system, and an open COM port (COM1/COM2/COM3/COM4). The program supports the following functions: </P>
+<B><P>Loader</P><DIR>
+<DIR>
+
+</B><P>The Loader function of Microcontroller Tool Kit communicates with the internal bootstrap loader of Dallas Semiconductor devices. It allows an embedded system designer to quickly and easily communicate with the bootstrap loader of the Secure Microcontroller family or other Dallas Semiconductor Flash-based microcontrollers through the serial port of a PC.</P></DIR>
+</DIR>
+
+<B><P>Programmer</P><DIR>
+<DIR>
+
+</B><P>This is the PC host software to interface to the Dallas Semiconductor DS87000 Microcontroller Programmer. It can only be used in conjunction with the DS87000.</P>
+<B><P>FEATURES</P>
+</B></FONT><FONT FACE="Symbol" SIZE=2><P>·</FONT><FONT FACE="Arial" SIZE=2> Program Intel hex file to target device</P>
+</FONT><FONT FACE="Symbol" SIZE=2><P>·</FONT><FONT FACE="Arial" SIZE=2> Verify contents of Intel hex file against target device</P>
+</FONT><FONT FACE="Symbol" SIZE=2><P>·</FONT><FONT FACE="Arial" SIZE=2> Erase target device</P>
+</FONT><FONT FACE="Symbol" SIZE=2><P>·</FONT><FONT FACE="Arial" SIZE=2> Configure Lock bits</P></DIR>
+</DIR>
+
+<P>---------------------------------------------------------------------------------------------------------------</P>
+</FONT><B><FONT FACE="Arial" SIZE=4><P ALIGN="CENTER"><A NAME="loader"></A>Loader:</P>
+</B></FONT><FONT FACE="Arial" SIZE=2><P>The Loader function of Microcontroller Tool Kit communicates with the internal bootstrap loader of Dallas Semiconductor devices. </P><DIR>
+<DIR>
+
+<P>Allows an embedded system designer to quickly and easily communicate with the bootstrap loader of the Secure Microcontroller family or other Dallas Semiconductor Flash-based microcontrollers through the serial port of a PC. The program acts as a high-featured front-end to the bootstrap loader, simplifying the task of uploading and downloading code while still in the application. Minimal external hardware interfaces the PC to the target device and activates the bootstrap loader. This also serves as the PC host software for the DS5000TK Evaluation Kit.</P>
+<B><P>FEATURES</P>
+</B></FONT><FONT FACE="Symbol" SIZE=2><P>·</FONT><FONT FACE="Arial" SIZE=2> Load Intel hex file to target device</P>
+</FONT><FONT FACE="Symbol" SIZE=2><P>·</FONT><FONT FACE="Arial" SIZE=2> Verify contents of Intel hex file against device memory.</P>
+</FONT><FONT FACE="Symbol" SIZE=2><P>·</FONT><FONT FACE="Arial" SIZE=2> Erase target device</P>
+</FONT><FONT FACE="Symbol" SIZE=2><P>·</FONT><FONT FACE="Arial" SIZE=2> Dump/display specified range of device memory to screen (Intel hex record format)</P>
+</FONT><FONT FACE="Symbol" SIZE=2><P>·</FONT><FONT FACE="Arial" SIZE=2> Calculate CRC over specified memory range </P>
+</FONT><FONT FACE="Symbol" SIZE=2><P>·</FONT><FONT FACE="Arial" SIZE=2> Configure memory settings (Secure Microcontroller Family)</P>
+</FONT><FONT FACE="Symbol" SIZE=2><P>·</FONT><FONT FACE="Arial" SIZE=2> Configure security settings (Secure Microcontroller Family)</P>
+</FONT><FONT FACE="Symbol" SIZE=2><P>·</FONT><FONT FACE="Arial" SIZE=2> Configure/read SFRs related to Flash programming and I/O ports</P>
+</FONT><FONT FACE="Symbol" SIZE=2><P>·</FONT><FONT FACE="Arial" SIZE=2> Control external loading hardware via COM port DTR signal</P></DIR>
+</DIR>
+
+<P>The following features/commands are supported by the Loader; various commands and buttons are active or disabled based on the current device selection.</P>
+<B><P>Toolbar</P>
+</B><I><P>File</P><DIR>
+<DIR>
+
+</I><P>Load File to Target</P><DIR>
+<DIR>
+
+<P>Prompts for a file, then loads that file into memory of the target device.</P></DIR>
+</DIR>
+
+<P>Clear Flash, RAM</P><DIR>
+<DIR>
+
+<P>Add or remove a COM Port</P></DIR>
+</DIR>
+
+<P>Verify File</P><DIR>
+<DIR>
+
+<P>Verifies target memory against the specified file.</P></DIR>
+</DIR>
+
+<P>Exit</P><DIR>
+<DIR>
+
+<P>Terminate Microcontroller Tool Kit.</P></DIR>
+</DIR>
+</DIR>
+</DIR>
+
+<I><P>Options</P><DIR>
+<DIR>
+
+</I><P>Auto-Scroll</P><DIR>
+<DIR>
+
+<P>When selected, causes the active prompt to always remain at the bottom of the main window.</P></DIR>
+</DIR>
+
+<P>Parse backspaces</P><DIR>
+<DIR>
+
+<P>When selected, backspaces will be parsed.</P></DIR>
+</DIR>
+
+<P>Break before autobaud</P><DIR>
+<DIR>
+
+<P>When selected, sends a breaking character to the target device before attempting to autobaud.</P></DIR>
+</DIR>
+
+<P>Show hints</P><DIR>
+<DIR>
+
+<P>Shows a brief description of the button functions on mouseover.</P></DIR>
+</DIR>
+
+<P>Fix bad checksums on load</P><DIR>
+<DIR>
+
+<P>When selected, automatically recalculates the checksum when loading files into MTK. If the checksum is incorrect, it will assume the file contents are correct, recalculate the checksum and update the file’s checksum. This feature is particularly useful if one wishes to edit the contents of an Intel Hex file, which almost always changes the checksum, but omit the time consuming process of recalculating the new checksum.</P></DIR>
+</DIR>
+
+<P>Load blind (LB) on Flash Loads</P><DIR>
+<DIR>
+
+<P>This forces the DS89C420 to disable its internal data verification when receiving a downloaded Intel Hex file. On earlier revisions of the DS89C420 this allowed faster downloads.</P></DIR>
+</DIR>
+
+<P>Printing Mode</P><DIR>
+<DIR>
+
+<P>Selects the mode in which data will be displayed in the main window. "ASCII" displays only ASCII characters, "HEX" shows all characters in hexadecimal format, and "MIXED" shows both ASCII and non-ASCII characters.</P></DIR>
+</DIR>
+</DIR>
+</DIR>
+
+<I><P>Ports</P><DIR>
+<DIR>
+
+</I><P>Add Port / Remove Port</P><DIR>
+<DIR>
+
+<P>Add or remove a COM Port.</P></DIR>
+</DIR>
+
+<P>Select Port Settings</P><DIR>
+<DIR>
+
+<P>Choose the active COM port and select the baud rate from commonly used values.</P></DIR>
+</DIR>
+
+<P>Set Reload Value</P><DIR>
+<DIR>
+
+<P>Allows user to directly set the reload rate of the 16550 UART embedded in the PC. This permits the selection of non-standard baud rates.</P></DIR>
+</DIR>
+</DIR>
+</DIR>
+
+<I><P>Applications</P><DIR>
+<DIR>
+
+</I><P>Selects the active function of Microcontroller Tool Kit. Note that the COM port is automatically closed when switching functions and will have to be reopened.</P></DIR>
+</DIR>
+
+<I><P>Device Selection</P><DIR>
+<DIR>
+
+</I><P>Selects the target device. Most commands are not available until the target device has been selected.</P></DIR>
+</DIR>
+
+<I><P>Debug</P><DIR>
+<DIR>
+
+</I><P>Debugger</P><DIR>
+<DIR>
+
+<P>This feature is reserved for debugging the internal operation of Microcontroller Tool Kit only and should not be enabled except under direction of a Dallas Semiconductor applications engineer.</P></DIR>
+</DIR>
+
+<P>Capture log</P><DIR>
+<DIR>
+
+<P>Logs the contents of the main window to a user-specified file.</P></DIR>
+</DIR>
+
+<P>Stop logging</P><DIR>
+<DIR>
+
+<P>Terminates logging the main window contents and closes the previously specified log file.</P></DIR>
+</DIR>
+
+<P>Dump/display to file</P><DIR>
+<DIR>
+
+<P>When selected, the results of dump and display commands will be sent to a user-specified file instead of the main window.</P></DIR>
+</DIR>
+</DIR>
+</DIR>
+
+<I><P>Help</P><DIR>
+<DIR>
+
+</I><P>Options such as documentation for this program, technical support information, and the indispensable "About" page.</P></DIR>
+</DIR>
+
+<B><P>Memory commands bar</P>
+</B><I><P>RELOAD</P><DIR>
+<DIR>
+
+</I><P>A shortcut button that reloads the last file selected.</P></DIR>
+</DIR>
+
+<I><P>Load</P><DIR>
+<DIR>
+
+</I><P>Transmits a file to the target microcontroller via the PC port. This can be used either to load an Intel Hex file to the target via the bootstrap loader or transmit data to the serial port of the target running under a user application.</P></DIR>
+</DIR>
+
+<I><P>Verify</P><DIR>
+<DIR>
+
+</I><P>Verifies the selected Intel Hex file against target memory locations with the same address. Memory locations not contained in Intel Hex file will not be compared. </P></DIR>
+</DIR>
+
+<I><P>Erase</P><DIR>
+<DIR>
+
+</I><P>Clears the contents of Flash memory to FFh. Clears the contents of Secure Microcontroller program and data memory to 00h. [????]</P></DIR>
+</DIR>
+
+<I><P>Configure</P><DIR>
+<DIR>
+
+</I><P>Allows the setting of the partition address for Secure Microcontrollers</P></DIR>
+</DIR>
+
+<I><P>Key</P><DIR>
+<DIR>
+
+</I><P>Allows the setting of the encryption key for DS5000FP. The user can input their own 5-byte key or have MTK select a pseudo random one. </P></DIR>
+</DIR>
+
+<I><P>Dump</P><DIR>
+<DIR>
+
+</I><P>Memory contents from Range:Begin to Range:End are displayed on the PC as Intel Hex Data. </P>
+<I><P>Example:</P>
+</I></FONT><FONT FACE="Courier New" SIZE=1><P>kit&gt; dump 0 2f</P>
+<P>:20000000B29080FC3C2D5465737420436F646520202020202020202020202020202020205E<BR>
+:100020005465787420666F7220446973706C6179CE<BR>
+:00000001FF</P></DIR>
+</DIR>
+
+</FONT><I><FONT FACE="Arial" SIZE=2><P>Display</P><DIR>
+<DIR>
+
+</I><P>Memory contents from Range:Begin to Range:End is displayed in hex and ASCII format. </P>
+<I><P>Example:</P>
+</I></FONT><FONT FACE="Courier New" SIZE=1><P>kit&gt; display 0 7f</P>
+<P>0000 B2 90 80 FC 3C 2D 54 65 - 73 74 20 43 6F 64 65 20 ....&lt;-Test Code<BR>
+0010 20 20 20 20 20 20 20 20 - 20 20 20 20 20 20 20 20<BR>
+0020 54 65 78 74 20 66 6F 72 - 20 44 69 73 70 6C 61 79 Text for Display<BR>
+0030 50 75 72 70 6F 73 65 73 - 2E 20 41 42 43 44 45 46 Purposes. ABCDEF<BR>
+0040 47 48 49 4A 4B 4C 4D 4E - 4F 50 51 52 53 54 55 56 GHIJKLMNOPQRSTUV<BR>
+0050 57 58 59 5A 20 20 61 62 - 63 64 65 66 67 68 69 6A WXYZ abcdefghij<BR>
+0060 6B 6C 6D 6E 6F 70 71 72 - 73 74 75 76 77 78 79 7A klmnopqrstuvwxyz<BR>
+0070 2A 20 20 31 32 33 34 35 - 36 37 38 39 30 20 20 2A * 1234567890 *</P></DIR>
+</DIR>
+
+</FONT><I><FONT FACE="Arial" SIZE=2><P>CRC</P><DIR>
+<DIR>
+
+</I><P>Calculates a CRC value over memory contents from Range:Begin to Range:End. </P></DIR>
+</DIR>
+
+<I><P>Range</P><DIR>
+<DIR>
+
+</I><P>Allows the user to enter the begin and ending ranges used by the functions mentioned above.</P></DIR>
+</DIR>
+
+<B><P>SFR bar</P>
+</B><I><P>SFRs</P><DIR>
+<DIR>
+
+</I><P>Displays the contents of the SFRs. This display is only updated when the Update SFRs from Target button is depressed. The contents of the SFRs can be edited in these windows, but will only be updated in the target when the Write SFRs to Target button is depressed.</P></DIR>
+</DIR>
+
+<I><P>Write SFRs to Target</P><DIR>
+<DIR>
+
+</I><P>Copies the values of all the active SFRs to the target device.</P></DIR>
+</DIR>
+
+<I><P>Update SFRs from Target</P><DIR>
+<DIR>
+
+</I><P>Reads the values of all the active SFRs from the target device and updates the display windows.</P></DIR>
+</DIR>
+
+<I><P>Freshness</P><DIR>
+<DIR>
+
+</I><P>Selecting this button places the a DS5001FP, DS5002FP, DS2251T, or DS2252T into Freshness mode. Remove power from the device immediately. This command has no effect on a DS5000FP, DS5000(T), or DS2250(T).</P></DIR>
+</DIR>
+
+<B><P>Main window</P><DIR>
+<DIR>
+
+</B><P>Results of various operations are displayed here. This window also functions as a terminal emulator, as commands typed in this window are transmitted directly out the selection COM port.</P></DIR>
+</DIR>
+
+<B><P>Loader bar</P>
+</B><I><P>Device Name</P><DIR>
+<DIR>
+
+</I><P>Displays the currently selected device.</P></DIR>
+</DIR>
+
+<I><P>Loader</P><DIR>
+<DIR>
+
+</I><P>This button asserts the DTR signal of the selected COM port, activating the loader mode of the target system.</P></DIR>
+</DIR>
+
+<I><P>Run</P><DIR>
+<DIR>
+
+</I><P>This button de-asserts the DTR signal of the selected COM port, deactivating the loader mode of the target system, which in most cases will allow the target application to begin running application software.</P></DIR>
+</DIR>
+
+<B><P>Com port control</P>
+</B><I><P>Open Serial Port</P><DIR>
+<DIR>
+
+</I><P>Opens the selected serial port.</P></DIR>
+</DIR>
+
+<I><P>Close Serial Port</P><DIR>
+<DIR>
+
+</I><P>Closes the selected serial port.</P></DIR>
+</DIR>
+
+<I><P>Clear Window</P><DIR>
+<DIR>
+
+</I><P>Clears the main windows.</P></DIR>
+</DIR>
+
+<B><P>--------------------------------</P>
+<P>--------------------------------</P>
+<P>--------------------------------</P>
+<P>Quick start</P>
+</B><P>1. Connect the microcontroller to the PC via an external hardware interface.</P>
+<P>2. Select the COM port and baud rate.</P>
+<P>3. Select the device type</P>
+<P>3. Activate the DTR signal by pressing the Loader button at the bottom of the window. The target device should return its sign-on banner in the main window.</P>
+<P>5. Select the Intel hex file (.hex) to be loaded</P><DIR>
+<DIR>
+
+<P>File -&gt; Load File</P>
+<P>The application will show percent completion as it loads and respond with "Done loading file" when complete.</P></DIR>
+</DIR>
+
+<P>6. If desired, you can verify the load by clicking the Verify button on the memory access bar and selecting the same file you loaded. </P>
+<P>On subsequent loads of the same file, the Reload button is a shortcut.</P>
+<B><P ALIGN="CENTER"><A NAME="interface"></A>Interface Hardware</P>
+<P>Interfacing the PC to the DS89C420</P>
+</B><P>The external hardware interface to the DS89C420 is quite simple. To activate the internal bootstrap loader of the DS89C420, the RST pin must be pulled high and the EA\ and PSEN\ pins must be pulled low. Communication to the bootstrap loader is performed via serial port 0. Loader420 is designed to use the COM port DTR signal (active low) to activate/deactivate the bootstrap loader, which greatly simplifies the loading process. The following illustration shows one possible hardware configuration that will interface the DS89C420 to the PC. This configuration allows in-application programming, as it is completely transparent when the DTR signal is not active.</P>
+</FONT><FONT SIZE=2><P ALIGN="CENTER">{bmc 420hardware.bmp}</P>
+</FONT><B><FONT FACE="Arial" SIZE=2><P>Interfacing the PC to Secure Microcontrollers without the DS5000TK</P>
+</B><P>The external hardware interface is different depending on whether the microcontroller is a DS5000FP (or DS5000FP-based such as the DS5000T or DS2250T) or DS5001FP/DS500FP (or DS5001FP/DS5002FP-based such as the DS2251T or DS2252). To activate the internal bootstrap loader of the DS5000FP, the RST pin must be pulled high and the EA\ pin must be pulled low. To activate the internal bootstrap loader of the DS5001FP or DS5002FP, the PROG pin must be held low for at least 48 oscillator clocks and remain low throughout the bootloader session. Communication to the bootstrap loader is performed via the serial port. MTK uses the COM port DTR signal (active low) to activate/deactivate the bootstrap loader, which greatly simplifies the loading process. The following illustration shows one possible hardware configuration that will interface the DS89C420 to the PC. This configuration allows in-application programming, as it is completely transparent when the DTR signal is not active.</P>
+</FONT><FONT SIZE=2><P ALIGN="CENTER">{bmc 500xhardware.bmp}</P>
+</FONT><B><FONT FACE="Arial" SIZE=2><P>Interfacing the PC to the DS5000TK</P>
+</B><P>Follow the directions included in the DS5000TK. </P>
+<P>&nbsp;</P></FONT></BODY>
+</HTML>

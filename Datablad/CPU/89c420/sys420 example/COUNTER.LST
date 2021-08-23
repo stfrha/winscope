@@ -1,0 +1,80 @@
+C51 COMPILER V6.22  COUNTER                                                                01/30/2002 13:40:12 PAGE 1   
+
+
+C51 COMPILER V6.22, COMPILATION OF MODULE COUNTER
+OBJECT MODULE PLACED IN COUNTER.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE COUNTER.C ROM(SMALL) OPTIMIZE(9,SPEED) BROWSE INTVECTOR(0X4000) DEBUG OBJEC
+                    -TEXTEND
+
+stmt level    source
+
+   1          /*------------------------------------------------------------------------------
+   2          HELLO.C
+   3          
+   4          Copyright 1995-2002 Keil Software, Inc.
+   5          ------------------------------------------------------------------------------*/
+   6          
+   7          #include <REG420.H>               /* special function register declarations   */
+   8                                            /* for the intended 8051 derivative         */
+   9          
+  10          #include <stdio.h>                /* prototype declarations for I/O functions */
+  11          
+  12          
+  13          #ifdef MONITOR                           /* Debugging with Monitor-51 needs   */
+              char code reserve [3] _at_ 0x23;         /* space for serial interrupt if     */
+              #endif                                   /* Stop Exection with Serial Intr.   */
+  16                                                   /* is enabled                        */
+  17          
+  18          
+  19          /*------------------------------------------------
+  20          The main C function.  Program execution starts
+  21          here after stack initialization.
+  22          ------------------------------------------------*/
+  23          void main (void) {
+  24   1      
+  25   1      unsigned int counter;
+  26   1      
+  27   1      /*------------------------------------------------
+  28   1      Setup the serial port for 19200 baud at 22.1MHz.
+  29   1      ------------------------------------------------*/
+  30   1      #ifndef MONITOR
+  31   1          SCON0  = 0x50;                      /* SCON0: mode 1, 8-bit UART, enable rcvr       */
+  32   1          TMOD |= 0x20;             /* TMOD: timer 1, mode 2, 8-bit reload          */
+  33   1          TH1   = 0xFD;            /* TH1:  reload value for 19200 baud @ 22.100 MHz*/
+  34   1          TR1   = 1;                /* TR1:  timer 1 run                            */
+  35   1          TI_0  = 1;                /* TI_0:   set TI to send first char of UART    */
+  36   1      #endif
+  37   1      
+  38   1      /*------------------------------------------------
+  39   1      Note that an embedded program never exits (because
+  40   1      there is no operating system to return to).  It
+  41   1      must loop and execute forever.
+  42   1      ------------------------------------------------*/
+  43   1        while (1) {
+  44   2          
+  45   2          for ( counter = 1; counter <= 1000; counter++ )  {
+  46   3            
+  47   3            P1 ^= 0x01;                                   /* Toggle P1.0 each time we print */
+  48   3            printf ("\ncounter = %d", counter );    /* Print the context of counter   */
+  49   3          }      
+  50   2          
+  51   2        }
+  52   1      }
+  53          
+  54          
+C51 COMPILER V6.22  COUNTER                                                                01/30/2002 13:40:12 PAGE 2   
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     55    ----
+   CONSTANT SIZE    =     14    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

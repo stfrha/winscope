@@ -1,0 +1,252 @@
+PDIUSBD12 FAQ
+1. 	General Product Information	
+1.1 	What is the difference between PDIUSBD11 and PDIUSBD12?	
+1.2 	How much current does PDIUSBD12 consume?	
+1.3 	Is PDIUSBD12 compliant to USB Specification 1.0 or 1.1?	
+		
+2. 	On Power Up	
+2.1 	What is the suspend output on power up?	
+2.2 	What is the default clock output on power up?	
+		
+2.3 	Power-on Reset (POR)	
+2.3.1 	How is the Power-on Reset provided to the PDIUSBD12 device?	
+2.3.2 	What should be the width of the reset pulse PDIUSBD12?	
+2.3.3 	Can we start accessing PDIUSBD12 immediately after the power-on reset?	
+		
+3. 	Suspend	
+3.1 	What are the suspend current ratings for PDIUSBD12?	
+3.2 	When does the system go into suspend?	
+3.3 	How does the system get out of suspend?	
+3.4 	What is Vout3.3 on suspend?	
+3.5 	What is the CLKOUT frequency during suspend?	
+3.6 	Why are 1 MW W resistors required in the USB-EPP demo kit?	
+3.7 	The suspend pin is shown as an input as well as an output. Explain the behavior.	
+		
+4. 	Clocking	
+4.1 	What is the available clockout frequency?	
+4.2 	What is the suspend CLKOUT frequency?	
+4.3 	What is the start-up time of the CLKOUT?	
+4.4	What are the passive components used on the crystal circuitry for PDIUSBD12?	
+4.5	What is the clocking Vpeak-to-peak to be fed into the Xtal1 pin?	
+		
+5. 	Interfacing	
+5.1 	What is the fastest transfer speed achievable on the parallel interface?	
+5.2 	How does the DMA work when data is to be transferred from the host to the device?	
+5.3 	How does the DMA work when data is to be transferred from the device to the host?	
+5.4 	What is the difference between a burst DMA mode and a single DMA transfer mode?	
+5.5 	DMA Timings?	
+5.6 	Does PDIUSBD12 take 5 V or 3.3 V input?	
+5.7 	What is the output voltage swing?	
+5.8 	Can I make use of the Vout3.3 to drive other parts of my circuit?	
+5.9 	Can CS_N and the DACK_N be active at the same time?	
+5.10 	Should I used level trigger or edge trigger on PDIUSBD12?	
+5.11 	How should the EOT_N be connected to accomplish a Vbus-sensing functionality?	
+5.12 	How do you use the ALE pin of PDIUSBD12?	
+5.13 	Can the CS_N pin of PDIUSBD12 be tied to ground all the time ?	
+		
+6.	Programming PDIUSBD12	
+6.1 	What is SoftConnect™?	
+6.2 	What is the difference between Set Address/Enable and SoftConnect?	
+6.3 	How do I configure the DMA register?	
+		
+7. 	Others	
+7.1	What is double buffering?	
+7.2	What is the internal buffer size of PDIUSBD12?	
+7.3	Is there any EMI issues I should take care of?	
+7.4	What resistor value is recommended for the GoodLink™ LED (GL_N)?	
+7.5	What is the Vendor ID and Product ID?	
+7.6	Why is implemented based on a 6-MHz crystal?	
+7.7	Why does the Philips Test Application, D12Test.exe, report a varying data transfer rate?	
+7.8	What is the Allocation difference between Isochronous and Bulk Pipe?	
+7.9	Are there any implications to the signaling quality with the addition of the 1-MW leaking resistors on the PDIUSBD12 demonstration board?	
+7.10	What values of matching resistors should I use for the D+/D- lines?	
+ 1. General Product Information 
+1.1 What is the difference between PDIUSBD11 and PDIUSBD12 ?
+PDIUSBD11 offers an I²C interface to any microcontroller. The operating speed of the I²C interface can be up to 1 Mbit/sec. It has a total of 4 endpoints, including the default endpoint 0. Each of the endpoints is bi-directional with a buffer size of 8 bytes. The 8-byte buffer size and the simple I²C connectivity make it suitable for (not restricted to) applications such as multi-function keyboards, high-end joystick (forced feedback), monitor control and other HID-based systems.
+PDIUSBD12, on the other hand, offers a generic parallel interface to any microcontroller. This allows faster access time of up to 2 Mbyte/sec. There are 3 bi-directional endpoints including the default endpoint 0. The buffer size is 16 bytes for endpoint 0 and 1, and a double buffered 64 bytes (Bi-directional mode) for endpoint 2. Endpoint 2 is also configured to work as an IN only endpoint or a OUT only endpoint. In addition, Endpoint 2 can be used for Isochronous, Bulk or Interrupt operation. The D12 would be appropriate to be used in scanners, printers, digital cameras, modems, telephony.
+1.2 How much current does the PDIUSBD12 consume?
+During normal operation, PDIUSBD12 consumes 15 mA. In suspend mode, the PDIUSBD12 internally shuts off blocks that are not essential. This allows an operating current of 15 µA during suspend. This is particularly important for bus-powered systems as the USB Specification requires the suspend current to be 500 µA or less. See also Question 3.1.
+PDIUSBD12 offers bus-powered capability as it can go into deep sleep, drawing only 15 µA. This feature is not included in USB interface ICs from other vendors.
+1.3 Is PDIUSBD12 compliant to USB Specification 1.0 or the 1.1?
+USB Spec 1.1 was released on September 23, 1998. As expected, USB 1.1 only clarifies USB Spec 1.0. Much information on the timing on the protocol layer has been included. This may impact the firmware on the microcontroller. However, this does not affect the compliance of D12 to the 1.1 Specification.
+All the physical layer specifications have been rechecked to ensure compatibility to the USB Spec 1.1.
+( The USB Specification 1.1 (Draft) was released on 28 July 98 and the USB Specification 1.1 was released on September 23, 1998. PDIUSBD12 is only used as the physical layer (Chapter 7) and basic protocol layer (Chapter 8.1 through Chapter 8.4.5) interface. It is compliant to both the USB 1.0 and 1.1 specifications. The handshake responses are handled through the microcontroller.
+This allows PDIUSBD12 to be upward compatible with changes to Chapter 8.4.5 through Chapter 9. )
+ 2. On Power up 
+2.1 What is the suspend output on power up?
+The suspend pin is low right after PDIUSBD12 is powered up.
+2.2 What is the default clock output on power up?
+The default clock output frequency is 4 MHz.
+ 2.3 Power-on Reset (POR) 
+2.3.1 How is the Power-on Reset provided to the PDIUSBD12 device?
+PDIUSBD12 has a built-in power-on reset circuit. Typically, the reset pin can be directly connected to the Vcc. However, in applications such as the personal digital assistant (PDA) and digital still camera (DSC)---in which the devices are battery operated---PDIUSBD12 is "always on" even when it is not in use. Electrostatic discharge (ESD)-possibly caused by handling or storage--can cause PDIUSBD12 to enter an indeterminate state. To avoid this, it is recommended that an external controlled source (such as a microcontroller or microprocessor) provide the reset to PDIUSBD12, instead of connecting PDIUSBD12 to the Vcc directly. An added advantage is that a reset is easily done: for example, in a PDA the device PDIUSBD12 can be reset whenever data transfer is required through the USB using HotSync® application. 
+2.3.2 What should be the width of the reset pulse PDIUSBD12?
+The external reset pulse width has to be 500 µs (min.). When the reset pin is LOW, make sure the CS_N pin is in the inactive state; otherwise, the device may enter Test mode. 
+2.3.3 Can we start accessing PDIUSBD12 immediately after the power-on reset?
+After the reset, wait for 3 ms (min.) before accessing the PDIUSBD12 registers. This will allow sufficient time for the crystal clock to stabilize. 
+ 3. Suspend 
+3.1 What are the suspend current ratings for PDIUSBD12?
+The USB Specification requires bus-powered devices to draw less than 500 µA during suspend mode. To meet this stringent requirement, the PDIUSBD12 shuts off non-essential internal blocks when in suspend mode. This significantly reduces the current ratings to a maximum of only 15 µA. This allows more margin for the rest of the hardware to meet the 500 µA requirement in a typical bus-powered system.
+In addition, PDIUSBD12 (D12) supports remote wakeup. A peripheral using D12 can initiate a system wakeup as well.
+Note: The 15 µA does not include the mandatory pull-up resistor on the D+ line which adds 200 µA on all USB devices. Hence, in total, using the PDIUSBD12 as a USB front-end would consume a maximum of 215 µA on suspend. The actual measured value is 202 µA. See also Question 1.2.
+3.2 When does the system go into suspend?
+The host requests that you go to suspend, or, when the host itself is in suspend, then, the USB lines are in idle mode. The electrical translation of this Idle Mode on the D+ and D- lines is a high and a low respectively. This assumes that the device has been connected to the USB bus with a pull-up resistor on the D+ line.
+In addition, when the device is unconnected, the device also goes to the Idle Mode if the D+ line is pulled high and the D- line is pulled low.
+With no activity on the USB bus, PDIUSBD12 will start to count the absence of 3 consecutive Start Of Frames (SOF) and pull the Suspend pin high. The corresponding suspend bit in the Interrupt Register is also set.
+3.3 How does the system get out of suspend?
+There is two ways in which the USB device can get out of suspend: host initiated or device initiated.
+Host initiated:
+When the host recovers from a suspend state, the USB traffic becomes active again through the SOF every millisecond. The interrupt line from PDIUSBD12 becomes active-low to indicate that there has been a change of condition on suspend. This may be used to generate a wakeup to your microcontroller.
+Device initiated:
+To wake up the system using PDIUSBD12, you can use the Send Resume command. This would toggle the D+/D- lines to send a resume signal to the host. 
+3.4 What is Vout3.3 on suspend?
+On suspend, this value drops to 2.0 V, however, it is still capable of supplying 10 mA of current.
+3.5 What is the CLKOUT frequency during suspend?
+The behavior of the output clock is configured based on the Configuration Byte written using the Set Mode Command (0xF3).
+Configuration Byte		CLKOUT 	
+No LazyClock™	Clock Running		
+0	0	CLKOUT switches to LazyClock on suspend. The output frequency is 18 kHz to 48 kHz. The PLL clock switches off to reduce current consumption.	
+1	0	CLKOUT switches to LazyClock on suspend. The output frequency is 18 kHz to 48 kHz. The PLL clock remains on.	
+0	1	The suspend state does not affect the CLKOUT frequency with this configuration.	
+1	1	The CLKOUT stops on suspend. 	
+3.6 Why are the 1 MW resistors required in the USB-EPP demo kit?
+In a self-powered system, when the USB cable is disconnected from the host, the D+ and D- lines will effectively be floating. In a noisy environment (e.g., inside the scanner where there are many high-current components), some switching will occur on the D+/D- lines because of the induced noise. When this happens, the SIE will sometimes be fooled into believing that a Resume signal was generated from the host. The consequence of that is PDIUSBD12 exits out of suspend state due to a false Resume.
+A 1 MW pull-down resistor is put onto the D- line. Another 1 MW pull-up resistor rests on the D+ line. Note that there is an error on the USB-EPP kit, the pull-up and downs should follow what is mentioned here.
+3.7 The suspend pin is shown as an input as well as an output. Explain the behavior.
+The suspend pin is a bidirectional pin. 
+As input: When the PDIUSBD12 device is in "suspend" mode, the internal registers of the device D12 cannot be accessed. If there is a need to access the device, the microcontroller can pull the suspend pin LOW to wake up the device and then access it. This is how the suspend pin is used as an input. 
+As an output: The PDIUSBD12 device can enter "suspend" mode as follows: The host requests the device to go into suspend, or, when the host itself is in suspend, then the USB lines are in Idle mode. The electrical translation of this Idle Mode on the D+ and D- lines is a HIGH and a LOW respectively. This assumes that the device has been connected to the USB bus with a pull-up resistor on the D+ line. 
+In addition, when the device is unconnected, the device also goes to the Idle Mode if the D+ line is pulled HIGH and the D- line is pulled LOW. 
+With no activity on the USB bus, PDIUSBD12 will start to count the absence of three consecutive Start Of Frames (SOF) and pull the Suspend pin HIGH. This is how the suspend pin is used as an output. 
+ 4. Clocking 
+4.1 What is the available clockout frequency?
+The clockout frequency can be set via the Clock Division Factor using the Set Mode Command (0xF3).
+The output frequency is based on the equation here:
+CLKOUT = 48/(N+1) MHz, where N – Clock Division Factor
+N Clock Division Factor) 	CLKOUT	
+0x00	48 MHz (Maximum clocking frequency of PDIUSBD12)	
+0x01	24 MHz 	
+0x02	16 MHz	
+0x03	12 MHz	
+0x04	9.6 MHz	
+...	...	
+0x0A	4.36 MHz	
+0x0B	4 MHz (Power up value, Default CLKOUT frequency, Minimum clocking frequency)	
+4.2 What is the suspend CLKOUT frequency?
+Refer to the section on Suspend.
+4.3 What is the start-up time of CLKOUT?
+The CLKOUT frequency is derived from the oscillator (XTAL1, XTAL2 pins). The start-up time for CLKOUT depends on the start-up time of the crystal oscillator. This has been measured to be typically below 2 ms. Since some microcontrollers (for example, the 8051 family) use synchronous reset, the reset circuitry has to be designed to be active for 2 ms to be reset properly.
+4.4 What are the passive components used on the crystal circuitry for PDIUSBD12?
+Reduced C2 (22 pF) to allow quicker starting of the clock. However, the jitter increases as C2 is reduced. Two capacitors of 22 pF and 68 pF are to be used as shown.
+4.5 What is the clocking Vpeak-to-peak to be fed into the Xtal1 pin ?
+The clocking voltage can only take a peak-to-peak voltage of 3.3 V as the internal oscillator is built on a 3.3V core. Hence, to use a 5V external oscillator, it needs to be tied to the Xtal1 pin through a 1 kW resistor.
+ 5. Interfacing 
+5.1 What is the fastest transfer speed achievable on the parallel interface?
+There should be a minimum delay of 500 ns between two consecutive Read or Write phases. The RD_N and WR_N are to be held low for at least 20 ns for each Read or Write respectively. This is valid for both DMA and non-DMA mode.
+This transfer speed across the parallel interface should be well above the transfer speed of a generic microcontroller. 
+For a high speed RISC or microcontroller that matches the TWL (Wr_N low pulse width) and the TRL (Rd_N low pulse width), care must be taken to ensure that the 500 ns TWC (Write Cycle time) is observed. This can be accomplished through NOP (No Operation) delays between two consecutive Read/Write in the firmware.
+5.2 How does the DMA work when data is to be transferred from the host to the device?
+When PDIUSBD12 is set to the DMA mode, on receipt of a full packet of data from Endpoint 2, the DMReq is asserted to allow the DMA controller to retrieve the data from the PDIUSBD12's Internal Buffer. The Read_N of the PDIUSBD12 is to be asserted by the DMA Controller. The PDIUSBD12 does not have an internal buffer to keep track how many bytes have been transferred via DMA.
+5.3 How does the DMA work when data is to be transferred from the Device to the Host?
+When PDIUSBD12 is set to the DMA mode, there are two conditions in which data from the buffer will be transferred to the host on an IN token:
+When the internal buffer of Endpoint 2 is full (64 bytes), or, 
+When the EOT_N signal is asserted on the last packet that is transferred via DMA. 
+The DMReq is asserted once the internal buffer is empty and when the DMA enable register is set. Data is swept to the internal buffer when DMACK_N and DMREQ are both active at a WR_N.
+The EOT_N signal is generated by an external DMA Controller when the data count goes to zero. If the EOT_N signal is not present, it is recommended that you have an external counter to generate EOT_N at the last packet.
+5.4 What is the difference between a burst DMA Mode and a single DMA transfer mode?
+The behavior of DMREQ and DMACK_N are different for single and burst mode. The specifications of PDIUSBD12 on page 18 gives a graphic depiction between the Single and Burst mode.
+In a Single DMA transfer mode, DMREQ is asserted for every RD_N or WR_N strobe. Therefore, the number of bytes being transferred can be counted based on the falling edge of the DMREQ.
+In a burst DMA mode, the DMREQ is asserted through the burst length which is defined based on the DMA Burst information given in the Set DMA Command (0xFB).
+DMA Configuration Register		Remarks	
+Bit 1	Bit 0		
+0	0	Single DMA Transfer mode	
+0	1	Burst DMA mode. 4 bytes of data is transferred on every assertion of DMREQ unless prematurely ended by EOT_N.	
+1	0	Burst DMA mode. 8 bytes of data is transferred on every assertion of DMREQ unless prematurely ended by EOT_N.	
+1	1	Burst DMA mode. 16 bytes of data is transferred on every assertion of DMREQ unless prematurely ended by EOT_N.	
+5.5 DMA Timings?
+ 
+Name	Minimum	Maximum	Unit	
+tSHAH	130		ns	
+tRHSH	120		ns	
+tAHRH		330	ns	
+tEL	10		ns	
+5.6 Does PDIUSBD12 take 5V or 3.3V inputs?
+PDIUSBD12 can take either 5V or 3.3V inputs. To operate the IC at 5V, supply a 5V voltage to Vcc pin only and left Vout3.3 pin open (decoupled with capacitor). To operate the IC at 3.3V, supply a 3.3V voltage to both Vcc and Vout3.3 pins.
+5.7 What is the output voltage swing?
+There are typically two output types on the PDIUSBD12: the open drain and normal driving output. The driving strength for each of them is specified on the data sheet. The voltage swing of an open-drain output is dependent on the pull-up resistor on which it is tied to. For the other output pins, they are listed as follows:
+When the Vcc pin of PDIUSBD12 is powered from 5V.
+Pin Name	Type	Description	Voltage Swing	
+Data<0..7>	IO2	Input/Output with driving strength of 2 mA	5V	
+Suspend	OD4	Open-Drain, can sink 4 mA	Depends on pull-up	
+Clkout	O2	Output with 2mA drive	5V	
+Int_N	OD4	Open-Drain, can sink 4 mA	Depends on pull-up	
+GL_N	OD8	Open-Drain, can sink 8 mA	NA	
+DMREQ	O4	Output with 4mA drive	5V	
+* When the Vcc pin of PDIUSBD12 is powered from 3.3V.
+Pin Name	Type	Description	Voltage Swing	
+Data<0..7>	IO2	Input/Output with driving strength of 2 mA	3.3V	
+Suspend	OD4	Open-Drain, can sink 4 mA	Depends on pull-up	
+Clkout	O2	Output with 2mA drive	3.3V	
+Int_N	OD4	Open-Drain, can sink 4 mA	Depends on pull-up	
+GL_N	OD8	Open-Drain, can sink 8 mA	NA	
+DMREQ	O4	Output with 4mA drive	3.3V	
+Note: *When the Vcc of PDIUSBD12 is powered from 3.3V, the internal regulator shuts off. All voltage regulation should be done externally. Therefore, a 3.3V source should be applied to both Vcc and Vout3.3 pins.
+5.8 Can I make use of the Vout3.3 to drive other parts of my circuit?
+The Vout3.3 pin is provided to supply the pull-up voltage of the 1.5K resistor. However, user can also opt to use the internal SoftConnect™ resistor. Loading the Vout3.3 pin apart from this resistor is not recommended.
+5.9 Can the CS_N and the DACK_N be active at the same time?
+The user should not be writing or reading by asserting CS_N during DMA when DACK_N is active.
+5.10 Should I use level trigger or edge trigger on PDIUSBD12?
+The PDIUSBD12's interrupt pin remains low as long as the Interrupt register is non-zero. Therefore, the microcontroller should be configured to be level-trigger on the interrupt.
+5.11 How should the EOT_N be connected to accomplish a vbus sensing functionality?
+In a self-powered system, when the USB connection has been removed, there may not be any indication to the microcontroller that the USB cable is disconnected. To detect a disconnection, the EOT_N pin has dual functionality; that is, to function as an EOT (end of transfer) during DMA mode and to detect VBUS sensing (The vbus is the 5V power supply pin from the USB connector). For VBUS sensing, the EOT_N is connected to the vbus via a 1 kW resistor and a 1 MW bleeding resistor is required to leak the charges to ensure that EOT_N goes to zero when vbus is removed.
+So, when the device is in self-power mode and when the Host is OFF, even if the USB cable is connected, the device will check the non-availability of VBUS (through the EOT_N pin) and switch off the internal SOFTCONNECT resistor. This ensures that the device PDIUSBD12 is disconnected and does not power the D+ line unnecessarily. 
+5.12 How do you use the ALE pin of the PDIUSBD12?
+When the ALE of D12 is connected to the ALE pin of the microcontroller and the address/data bus is multiplexed, this pin is used by the internal logic to strobe in the information to differentiate between a command and data on the parallel bus. Thus, communicating to D12 will mean that an even address means writing/reading data to D12 and an odd address means writing a command to D12 (The CS_N has to be pulled low during data communications as per normal).
+A0 will not be used and should be tied high in this instance.
+5.13 Can the CS_N pin of the PDIUSBD12 be tied to ground all the time ?
+The PDIUSBD12 is to be treated like any other microprocessor based device. CS_N is connected so that PDIUSBD12 can share the system bus with other devices. In some instance, the CS_N may be grounded all the time. E.g., when D12 is the only device residing on the system bus. If the system bus is shared, additional circuitry may be required to separate PDIUSBD12 from other resources via Rd_N/Wr_N if CS_N is to be grounded.
+Example: To glue the MC68331 with PDIUSBD12, the Trhch/Twhch timing for the CS output need to be delayed to match the timing of D12. In this instance, CS_N of D12 can be grounded, and the Rd_N/Wr_N may all be all you need. To separate other devices that shares the same bus, a glue logic can be implemented on Rd_N/Wr_N that is going to D12.
+ 6. Programming PDIUSBD12 
+6.1 What is SoftConnect™?
+The SetMode Register at 0xF3 has a bit which ties directly to the pull-up resistor on the D+ USB line. When the bit is 1, this means that the pulled-up resistor is enabled. Thus, a host/hub will detect that something has been plugged onto its USB port even though it has been physically connected before the command was issued.
+The beauty of using SoftConnect is that it allows the microcontroller to finish its initialization routine first before it notifies the host of its presence. This is especially valuable in a bus-powered device where the 5V power supply must first be stable before enumeration.
+To force the Host to do a re-enumeration, the microcontroller could initial a Soft Disconnect by setting the SetMode SoftConnect bit to 0. In doing so, the Host is forced to reload the Host device driver. This allows a device initiated upgrade without user to disconnect and connect the USB cable.
+6.2 What is the difference between Set Address/Enable and SoftConnect?
+The SetAddress/Enable is required to enable the SIE to respond to the USB request that is directed towards the address preset via SetAdress/Enable. Without enabling, PDIUSBD12 will not respond with the "ACK" or "NAK" token, even though the request is directed to it’s preset address.
+6.3 How do I configure the DMA register?
+On power-up, the DMA register may be used to checked for Read/Write error, it is the only register that is availble for Reading and Writing. The user needs to note that on power-up, the auto-reload bit cannot be set at and the DMA enable bit when set does not pull-up the DMA_Req pin.
+The DMA register would be cleared upon a bus-reset. Hence, initialized settings to the DMA register will be lost. It is recommended that the DMA register be set to the intended value only after the device has been configured.
+ 7. Others 
+7.1 What is double buffering?
+Double buffering on Endpoint 2 allows data to be source/sink on the USB bus while the internal buffer is being read/written by the microcontroller or the DMA controller. This increases the overall throughput as the host does not need to wait for the internal buffer to be cleared or filled before feeding or extracting the next packet.
+When data is to be extracted from the USB Device to the host, the switching from one buffer that was filled up by the microcontroller to the sending buffer at the USB end is done transparent to the microcontroller. The microcontroller does not have to keep track of which buffer to use, as it always uses the same register to access the IN buffer.
+When data is to be received from the Host to the USB Device, the switching from one buffer that was read by the microcontroller to the receiving buffer at the USB end is done transparent to the microcontroller. The microcontroller do not have to keep track of which buffer to use, as it always uses the same register to access the OUT buffer.
+7.2 What is the Internal Buffer size of PDIUSBD12?
+The total bytes of Internal Buffer dedicated for USB transfer is 320 bytes.
+Total Bytes		Endpoint 0		Endpoint 1		Endpoint 2	
+320	=	16 (IN) + 16 (OUT)	+	16 (IN) + 16 (OUT)	+	[64 (IN) +64 (OUT)] x 2 (Double Buffered)	
+7.3 Is there any EMI issues I should take care of?
+EMI issues are too broad a subject to cover. In general, ferrite beads are to be added on the vbus and the Ground at the input side of the USB connector. One such part is BLM32A07.
+It is recommended to have capacitive coupling from the USB Shield to the electrical ground.
+7.4 What resistor value is recommended for the GoodLink LED (GL_N)?
+This depends on how bright the user wants the LED to be and also the brightness/current rating of the LEDs. Any value from 100 W to 1 kW is normally OK. The evaluation kit recommends a value of 470 W.
+7.5 What is the Vendor ID and Product ID?
+The Vendor ID identifies the manufacturer of the USB product. It is used to load the INF file which contains the text string of the Manufacturer and information of which device-driver to load on Windows 98.
+The Vendor ID can be obtained by registering with the USB-IF. More information can be obtained on the website at <http://www.usb.org/>. The Vendor ID (VID) for Philips Semiconductors is 0471. The Product ID (PID) is unique to each USB product.
+The VID and PID can be set by simply changing the Device Descriptors on the firmware. This is good for product differentiation as customers maintain their own product identity on Windows 98.
+7.6 Why is the PDIUSBD12 implemented based on a 6 MHz crystal?
+The 6 MHz crystal lowers the risk of having EMI problems later in the production process.
+7.7 Why does the Philips Test Application, D12Test.exe, report a varying data transfer rate?
+The calculation of the real-time transfer rate is made on every block of 16 Kbytes. The actual derivation formula used is:
+Transfer speed (Bytes/s) = 16*1024/Time Spent (seconds).
+Where the Time Spent is the completion time of transfer minus the initiated time. The Windows 98 operating system provides a 1 millisec resolution on the Time Spent. In additional, there is random overhead incurred due to system calls from user-mode to kernel mode. All in all, a 2 ms ambiguity would put the variance of the transfer rate to be about 20%.
+Whatever the reported transfer rate, it is often the situation that the Host is the bottleneck. It can be verified using a CATC Analyzer that the PDIUSBD12 is fully utilizing the allocation provide by the Host. 
+7.8 What is the Allocation difference between Isochronous and Bulk Pipe?
+The Isochronous pipe guarantees bandwidth regardless of Data Integrity. A Bulk pipe guarantees data integrity, but, delivery is ruled based on "first require first allocate". Hence, on a heavy USB traffic, the Bulk pipe may be starved.
+7.9 Are there any implications to the signaling quality with the addition of the 1-MW leaking resistors on the PDIUSBD12 demonstration board?
+All the signals on the physical layer of USB are designed to be single-end terminated. At any one time, there can only be a transmitter and a receiver. The transmitter, or the driver, is required to have output impedance of between 28 W and 44 W. At the receiving end, the receiver must present an input impedance of > 300KW (exclusive of termination).
+When the PDIUSBD12 is in the driving state, the output impedance is between 29W and 44W. The effective impedance inclusive of the parallel pull-up at D+ of 1.5KW and the parallel pull-down at D+/D- of 1 MW does not vary that much with the driving impedance.
+During the receiving state, the total impedance is >300 KW even with the 1 MW leakage resistor present.
+7.10 What values of matching resistors should I used for the D+/D- lines?
+Place 18 W of resistors in series on the D+. Do the same for the D- line. 
+ 

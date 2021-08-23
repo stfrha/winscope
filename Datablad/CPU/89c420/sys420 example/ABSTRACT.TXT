@@ -1,0 +1,20 @@
+The COUNTER program is a simple program that counts from 1 to 1000,
+toggles the P1_0 bit and transmits the counter value out serial channel 0.
+
+When you can successfully build and run this program, you have used the
+entire toolset including:
+
+* The uVision2 integrated development environment.
+* The C51 compiler, linker and the µVision2 simulator/debugger.
+* The Systronix C420 Board.
+
+The program is available in two Targets:
+
+  Simulator:                    uses the µVision2 simulator for testing
+  Monitor for Systronix C420:   uses the Monitor with Systronix C420 board
+
+To compile/assemble for the monitor, you must define MONITOR for conditional
+assembly/compilation of stuff required (or excluded) for monitor debugging.
+
+
+

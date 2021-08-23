@@ -1,0 +1,123 @@
+Bernd, 
+My first and only question would be... 
+"Why in the world would you write your code this way?". 
+I'm of course referring to the part where you write a chunk of data into an endpoint buffer, validate it, and then SITS IN A LOOP WITH INTERRUPTS DISABLED POLLING THE BULK ENDPOINT BUFFER TO SEE IF IT IS EMPTY. 
+This is a very bad idea. Your device is completely unable to process transactions over other endpoints (including the CONTROL endpoints) while it sits in your loop. 
+How about trying this... 
+Set up a few variables to control your "SEND" operation (it's called an "IN" in USB). These variables would include things like... 
+1. A "char *" pchNextData (points to the next data to write).
+2. An "int" nRemaining (count of remaining bytes to be written). 
+The approach then is that you have to set up the control variables before you start your IN, and inspect/update them as you write data to the IN endpoint in chunks. The only tricky part is near the end, where you have to detect if the last chunk is smaller than or equal to the endpoint size. If the last chunk is equal to the size of the endpoint, than you will need a mechanism to send a subsequent NULL packet (after the last chunk is sent). 
+You write the first chunk immediately, the rest are written as the endpoint interrupts occur. Normally, each interrupt will mean that the previous chunk was sent to the Host (IN), but you will have to check the endpoint status after each interrupt to be sure. With bulk transfers, bad transactions are automatically resent by the D12, you don't get the interrupt until it actually "goes ok". For all you know... any particular chunk could have been resent 50 times... but you will get only one interrupt... after it works. 
+With the above mechanism, you don't have to sit in a loop with interrupts disabled. Your processor is free to do useful work, and is interrupted by the D12 only when more data is required. You don't have to worry about keeping up with the IN requests from the Host... because the D12 will NAK any requests for which data is not ready (IN endpoint not validated), until such time as you manage to get the data ready. 
+With the D12's double buffering, you also don't have to worry much about acheiving fast transfers. Typically, you are writing the next chunk into one buffer, while the D12 is transferring data to/from the other buffer. So... after the first chunk is written, you get an interrupt almost immediately, even if the Host has not had a chance to read (IN) the first chunk. You get the interrupt because the D12 has switched the buffers, and now has an empty buffer ready for your 2nd chunk. The next interrupt (for the third chunk) occurs only after the first chunk is successfully sent to the Host. 
+With this approach, even if something goes terribly wrong, resulting in a stalled bulk endpoint, the Host can recover because your firmware won't be stuck in a polling loop, and will be able to process SETUP transactions over the CONTROL pipe. The Host will use SETUP transactions to clear the stalled bulk endpoint. 
+If the endpoint isn't officially "stalled" your application will still have some chance of recovering from a failed bulk transfer. You will need some form of timeout detection mechanism in your application, and some form of "abort transfer" mechanism, implemented via a different pipe (maybe a vendor specific request sent through the control pipe). 
+Whew. 
+I hope this helps, 
+Michael 
+
+: Hello! 
+: I have a strange Error using the D12 from Philips. 
+: Environement:
+: - Atmel AVR 8515 running on 8 MHz, clocked from D12
+: - D12 from Philips, configured for Bulk Transfer, no DMA
+: - connection by AVR by Sram access using ALE for Address phase 
+: The firmware enumerates fine. 
+: In my firmware I use a Send-Routine, which transmits always a Header of 16 Byte, followed by n additonal Byte ( 0 <= n <= 256).
+: This works fine for serveral 100.000 turnarounds.
+: Then unpredictable the Error occurs:
+: in the Header is stored the length of the additional sent data, and this value does not match the received amount.
+: if there should be sent the Header + 240 Byte, I receive only 128 Byte or 192 Byte or multiple of 64.
+: This is the amount, which fits in 2 or more Endpoint Buffers of the D12. So it looks like, there is sent a ZeroPackage in between, what is not done (verified by Hardware emulator of AVR). This ZeroPackage would be the indicator for the End of Bulk.
+: The firmware is then in an endless loop polling for a free Buffer to continue sending. On the Host side I receive only garbage, 2049 Byte. This is a request from our driver to receive 2048+1Byte (Win98)
+: The Host software tries to send a kind of Abort command to the device, and waits for an answer.
+: This request is not processed by the device for disabled Interrupts in the SendRoutine.
+: But the D12 seems to return something. 
+: the Used sequence looks like this: 
+: SendLoop: 
+: Select EndPoint2
+: Read One Byte
+: check for Empty Buffer, if Full Loop more 
+: Set Write Mode
+: Write 0 ; reserved
+: Write Lenght
+: Write Data Bytes until Buffer full, or done
+: Validate Buffer 
+: Loop until all Bytes sent
+: Send last ZeroPackage if needed to indicate EndOfBulk 
+: I heard about many problems connected to the 500nS problem of the D12 between several write/read attempts. 
+: So I added several NOPs up to a delay of 4 msecs, but there is no change.
+: the AVR is quite fast (RISC with 1 instruction per clock), so a NOP needs at 8 MHz only 125 ns.
+: so I added 32 NOPs before and 32 NOPs after each D12 access. 
+: The Interrupts are all disabled during the SendRoutine. So there can´t be any Interrupt corrupting internal Data, counter, Pointer...
+: With my Hardware Emulator (for AVR) the problem does not occur. This could be a hint for different Timing in general or on the PortPins. 
+: Any question, comment or hint will help.
+: Bernd 
+
+----------------------------------------------
+Bernd, 
+Ok... 
+Well if it's not your code or your implementation... then... why doesn't it work? 
+One thing you wrote possibly gives me a hint. 
+Where you say "started to loop for the next IN-Token". 
+With the 'D12 (and every other USB SIE chip I have seen), you don't get any notice that an IN token has been received. What you get, is an interrupt, which occurs AFTER THE ENDPOINT DATA HAS BEEN TRANSFERRED SUCCESFULLY. 
+Plenty of others have had problems grasping this concept. 
+So... it DOESN'T work this way...
+Your device gets an interrupt saying "give me some data" or "here comes some data". 
+It DOES work this way...
+Your device gets an interrupt which means "the host just successfully read the data you had previously put in the IN buffer" or "the host just successfully wrote data to your OUT buffer". 
+The interrupts follow the transfers... not lead. 
+I hope this helps, 
+Michael 
+
+: Hi Michael. 
+: 
+: : My first and only question would be... 
+: : "Why in the world would you write your code this way?". 
+: I don´t want to insist on this point:
+: but the problem is not connected to this implementation. 
+: the statement: "all interrupts are disabled" is just to ensure, that there is no interaction from other Interrupt-sources. 
+: in the "real" implementation the Ints are only disabled during writing one "chunk". 
+: your mentioned algorithm offers for my device no advantage: 
+: 1. because of the special behaviour of the device:
+: if there are data to send, I can not continue doing anything else. I must send first, before going on. 
+: 2. other OUT-Tokens are handled normally, during 
+: 3. I need additional variables for keep the state. RAM is for me an "expensive" ressource. 
+: 4. this implementation is straight-forward: simple things avoid complicated errors. 
+: My first implementation had been, as you suggested. There I stared my first chunk, and started to loop for the next IN-Token... then entering the Int-routine, I checked, if the IN-Buffer is really empty, and filled the next chunk.
+: Analyzing this behaviour I decided to change it. 
+: but thanks for the comment.
+: Bernd
+----------------------------------------------------
+
+Hi Michael and Bernd. 
+1) About D12 doublebuffering.
+Michael wrote (1):
+So... after the first
+chunk is written, you get an interrupt almost immediately, even if the Host has not had a chance to read (IN) the first
+chunk. You get the interrupt because the D12 has switched the buffers, and now has an empty buffer ready for your 2nd
+chunk. The next interrupt (for the third chunk) occurs only after the first chunk is successfully sent to the Host. 
+... and Michael also wrote (2):
+It DOES work this way...
+Your device gets an interrupt which means "the host just successfully read the data you had previously put in the IN
+buffer" or "the host just successfully wrote data to your OUT buffer". 
+Michael, those two eplanations beat each other, doeasn't ? ;-)) When I wrote my firmware, I believed that D12's doublebuffering is transparent and so works like (1).
+Now I consider doublebuddering transparent for BULKOUT, but not for BULKIN. (transparent = firmware is written as if it for single buffer) With BULKOUT I achieved 918 kB/s. With BULKIN I achieved 554 kB/s only. So I changed my firmware according to (2). I write first two chunks (2x64 bytes) immediately, I use a variable to count bulkout buffer pending (which can be 0,1,2). Now I achieve 977 kB/s with BULKIN. I don't use any D12's full/empty buffer flags and undocumented commands, my firmware is interrupt driven. I can post more info if you like. 
+2) About reliability
+Bernd wrote:
+: I get the same Error occuring from time to time.
+: my latest idea is some unstable hardware influence, which confuses the D12.
+: btw.: the MCU works stable also after this Error.
+: philips suggests some things, like
+: - ferrite bead in the VCC lines
+: - disconnect of USB-shield and USB-GND, and coupling via a capacitor
+: - good grounding, and decoupling capacitors
+: such hints we did not obey in the actual layout, for some space limitations. also we assumed this not to be so necessary for a poor digital device with such slow clock frequencies of about 6-8 MHz.
+: sure there are decoupling caps, but not so close to the VCC lines, as you would do in a small signal analog device.
+: has anyone some expierences specially with the D12 in this direction? 
+I faced the similar problem with reliability of long BULK transfer (1 Mbyte). Some data was lost, I don't know what exactly happens. I spent many days with test of this issue. I doubt even about my firmware, but... I discovered, that problem went worse when I connected some more ports to my microcontroller's data bus. So I checked the PCB design and I considered my colleague's work neither good nor bad. There are long traces between D12's power supply pins and decoupling capacitor on this PCB. So I added cpacitors (470p + 100 nF) directly on the D12 package. (uff, this is dirty, but...) Now it works well. So I consider the D12 extremly sensitive to good decoupling (PCB design) especially with large data bus traces. 
+I will be glad to hear some more opinion on both problems. (doublebuffering and reliability) 
+Hope this helps.
+Ivo Viscor
+

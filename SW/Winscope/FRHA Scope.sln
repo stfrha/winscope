@@ -1,0 +1,27 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Winscope", "Winscope.vcproj", "{F05C9BC0-227F-4C08-AC21-7C9B6A145305}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "WinscopeDeployment", "..\WinscopeDeployment\WinscopeDeployment.vdproj", "{27088884-D47C-4654-B702-EC742012900C}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{F05C9BC0-227F-4C08-AC21-7C9B6A145305}.Debug.ActiveCfg = Debug|Win32
+		{F05C9BC0-227F-4C08-AC21-7C9B6A145305}.Debug.Build.0 = Debug|Win32
+		{F05C9BC0-227F-4C08-AC21-7C9B6A145305}.Release.ActiveCfg = Release|Win32
+		{F05C9BC0-227F-4C08-AC21-7C9B6A145305}.Release.Build.0 = Release|Win32
+		{27088884-D47C-4654-B702-EC742012900C}.Debug.ActiveCfg = Debug
+		{27088884-D47C-4654-B702-EC742012900C}.Release.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
